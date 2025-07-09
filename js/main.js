@@ -15,5 +15,5 @@ const getRandomNumRange = (firstNum, secondNum) => {
 getRandomNumRange(1, 5);
 
 // Сравнивает длину строки с числом.
-const isStringLessNum = (string, maxLength) => Number(string.length) < Number(maxLength);
-isStringLessNum('afkj oijadf ojoj', 2);
+const checkStringLength = (string, maxLength) => Number(string.length) < Number(maxLength);
+checkStringLength('afkj oijadf ojoj', 2);
