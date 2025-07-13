@@ -18,7 +18,7 @@ const getRandomNumRange = (firstNum = 1, lastNum = 10) => {
   lastNum = getPositiveNumber(lastNum);
   const min = Math.min(firstNum, lastNum);
   const max = Math.max(firstNum, lastNum);
-  return  Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 getRandomNumRange();
 
@@ -26,7 +26,7 @@ getRandomNumRange();
 const getArrayUniqueNumbers = (firstNum = 1, lastNum = 10, countNumbers = (lastNum - firstNum + 1)) => {
   const uniqueNumbers = [];
   while (uniqueNumbers.length < countNumbers) {
-    let num = getRandomNumRange(firstNum, lastNum);
+    const num = getRandomNumRange(firstNum, lastNum);
     if (!uniqueNumbers.includes(num)) {
       uniqueNumbers.push(num);
     }
@@ -45,8 +45,8 @@ const getComment = () => {
     avatar: `img/avatar-${id}.svg`,
     message: message,
     name: name
-  }
-}
+  };
+};
 
 // Возвращает массив комментариев к фотографии
 const getComments = (countComments) => {
@@ -58,18 +58,16 @@ const getComments = (countComments) => {
     comments.push(getComment());
   }
   return comments;
-}
+};
 
 // Возвращает описание и комментарии к фотографии
-const getPhotoDescription = (id) => {
-  return {
-    id: id,
-    url: `photos/${id}.jpg`,
-    description: PHOTO_DESCRIPTIONS[getRandomNumRange(0, (PHOTO_DESCRIPTIONS.length - 1))],
-    likes: getRandomNumRange(15, 200),
-    comments: getComments()
-  }
-}
+const getPhotoDescription = (id) => ({
+  id: id,
+  url: `photos/${id}.jpg`,
+  description: PHOTO_DESCRIPTIONS[getRandomNumRange(0, (PHOTO_DESCRIPTIONS.length - 1))],
+  likes: getRandomNumRange(15, 200),
+  comments: getComments()
+});
 getPhotoDescription();
 
 // Возвращает массив описаний и комментариев к фотографиям
@@ -87,6 +85,5 @@ const getPhotosDescriptions = (countDescriptions) => {
   }
 
   return descriptionsArr;
-}
-const descriptionsArr = getPhotosDescriptions();
-console.log(descriptionsArr);
+};
+getPhotosDescriptions();
