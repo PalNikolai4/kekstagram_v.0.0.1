@@ -1,20 +1,4 @@
-import { getRandomUniqueNumberFromRange } from './utill.js'
+import { getPictures } from './data.js';
 
-const asd = getRandomUniqueNumberFromRange(1, 10);
-const asb = getRandomUniqueNumberFromRange();
-console.log(asd());
-console.log(asd());
-console.log(asd());
-
-console.log(asb());
-console.log(asb());
-console.log(asb());
-
-
-
-
-
-
-
-
-
+const asd = getPictures(3);
+console.log(asd);

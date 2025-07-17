@@ -19,24 +19,35 @@ const getRandomNumRange = (firstNum = 1, lastNum = 10) => {
 getRandomNumRange();
 
 // Возвращает уникальное целое случайное число из диапазона
-const getRandomUniqueNumberFromRange = (firstNum = 1, lastNum = 10) => {
-  const min = Math.min(firstNum, lastNum);
-  const max = Math.max(firstNum, lastNum);
-  const uniqueNumbers = [];
+const getRandomUniqueNum = (rangeStart = 1, rangeEnd = 10) => {
+  const min = Math.min(rangeStart, rangeEnd);
+  const max = Math.max(rangeStart, rangeEnd);
+  const values = [];
 
-  return function () {
+  return () => {
     let value = getRandomNumRange(min, max);
 
-    if (uniqueNumbers.length >= (max - min + 1)) {
-      return uniqueNumbers;
+    if (values.length >= (max - min + 1)) {
+      return values;
     }
 
-    while (uniqueNumbers.includes(value)) {
+    while (values.includes(value)) {
       value = getRandomNumRange(min, max);
     }
-    uniqueNumbers.push(value);
-    return uniqueNumbers;
+    values.push(value);
+    return values;
   }
 }
 
-export { getRandomUniqueNumberFromRange };
+// Возвращает массив уникальных целых случайных чисел из диапазона
+const getRandomUniqueNums = (count = 1, rangeStart = 1, rangeEnd = count) => {
+  const value = getRandomUniqueNum(rangeStart, rangeEnd);
+  let randomUniqueNumsArray;
+
+  for (let i = 0; i < count; i++) {
+    randomUniqueNumsArray = value();
+  }
+  return randomUniqueNumsArray;
+}
+
+export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums };
