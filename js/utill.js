@@ -36,8 +36,8 @@ const getRandomUniqueNum = (rangeStart = 1, rangeEnd = 10) => {
     }
     values.push(value);
     return values;
-  }
-}
+  };
+};
 
 // Возвращает массив уникальных целых случайных чисел из диапазона
 const getRandomUniqueNums = (count = 1, rangeStart = 1, rangeEnd = count) => {
@@ -48,6 +48,6 @@ const getRandomUniqueNums = (count = 1, rangeStart = 1, rangeEnd = count) => {
     randomUniqueNumsArray = value();
   }
   return randomUniqueNumsArray;
-}
+};
 
 export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums };

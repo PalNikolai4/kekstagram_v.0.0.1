@@ -13,8 +13,8 @@ const getComment = (id) => {
     avatar: `img/avatar-${id}.svg`,
     message: message,
     name: name
-  }
-}
+  };
+};
 
 // Возвращает массив обьектов "Комментарий"
 const getComments = () => {
@@ -26,21 +26,21 @@ const getComments = () => {
     arrayComments.push(getComment(arrayUniqueNums[i]));
   }
   return arrayComments;
-}
+};
 // Возвращает обьект "Описание фотографий с вложенным массивом обьктов "Комментарий""
 const getPicture = (id) => {
-  const description = PHOTO_DESCRIPTIONS[getRandomNumRange(1, (PHOTO_DESCRIPTIONS.length - 1))]
+  const description = PHOTO_DESCRIPTIONS[getRandomNumRange(1, (PHOTO_DESCRIPTIONS.length - 1))];
   return {
     id: id,
     url: `photos/${id}.jpg`,
     description: description,
     likes: getRandomNumRange(15, 200),
     comments: getComments()
-  }
+  };
 
-}
+};
 // Возвращает массив обьектов "Описание фотографий с вложенными массивами обьктов "Комментарий""
-const getPictures = (count = 1) => {
+const getPictures = (count = 25) => {
   const arrayUniqueNums = getRandomUniqueNums(count);
   const arrayPictures = [];
 
@@ -49,6 +49,6 @@ const getPictures = (count = 1) => {
   }
 
   return arrayPictures;
-}
+};
 
-export { getPictures }
+export { getPictures };
