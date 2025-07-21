@@ -1,2 +1,6 @@
 import { getPictures } from './data.js';
-getPictures();
+import { renderPictures } from './picture.js';
+
+
+const picturesContainer = document.querySelector('.pictures');
+picturesContainer.append(renderPictures(getPictures(25)));
