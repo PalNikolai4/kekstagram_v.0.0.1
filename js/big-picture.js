@@ -47,18 +47,24 @@ const renderBigPicture = ({ url, description, likes, comments }) => {
 // - вешатель слушателя клика на кнопку esc
 // - вешатель слушателя клика на оверлей
 // - каждая из этих функций будет закрывать окно и вызывать функции по удалению слушателей
-const closeFullPicture = () => {
+const hideFullPicture = () => {
   body.classList.remove('modal-open');
+  bigPicture.classList.add('hidden');
+  closeButton.removeEventListener('click', hideFullPicture);
+  document.removeEventListener('keydown', onEscKeyDown);
 }
 
-closeButton.addEventListener('click', () => {
-  bigPicture.classList.add('hidden');
-  closeFullPicture();
-})
-// --------------------------------------------------------------------------------------------
+const onEscKeyDown = (evt) => {
+  if (evt.key === 'Escape') {
+    hideFullPicture();
+  }
+}
+
+// обьявить функцию закрытия просмотра bigPicture при клике вне области bigPicture
+
 const showFullPicture = (data) => {
-  bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
+  bigPicture.classList.remove('hidden');
   commentsCount.style = 'display: none';
   commentsLoader.style = 'display: none';
 
@@ -67,6 +73,8 @@ const showFullPicture = (data) => {
   socialComments.innerHTML = '';
   socialComments.append(createComments(data.comments));
 
+  document.addEventListener('keydown', onEscKeyDown);
+  closeButton.addEventListener('click', hideFullPicture);
 }
 
 export { showFullPicture }
