@@ -1,6 +1,5 @@
 import { getPictures } from './data.js';
 import { renderPictures } from './picture.js';
 
-
-const picturesContainer = document.querySelector('.pictures');
-picturesContainer.append(renderPictures(getPictures(25)));
+// Отрисовываем миниатюры фотографий на странице. Заполняем их некоторой информацией
+renderPictures(getPictures(25));
