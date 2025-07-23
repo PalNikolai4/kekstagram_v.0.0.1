@@ -1,5 +1,8 @@
+const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const socialComments = bigPicture.querySelector('.social__comments');
+const commentsCount = bigPicture.querySelector('.social__comment-count')
+const commentsLoader = bigPicture.querySelector('.comments-loader');
 
 const closeFullPicture = () => {
   const closeButton = bigPicture.querySelector('.big-picture__cancel');
@@ -16,11 +19,11 @@ const createElement = (tagName, className, text) => {
   return element;
 }
 
-const createComment = ({avatar, message}) => {
+const createComment = ({ avatar, name, message }) => {
   const comment = createElement('li', 'social__comment');
   const commentAvatar = createElement('img', 'social__picture');
   commentAvatar.src = avatar;
-  commentAvatar.alt = 'Аватар комментатора фотографии';
+  commentAvatar.alt = name;
   commentAvatar.width = '35';
   commentAvatar.height = '35';
   const commentText = createElement('p', 'social__text', message);
@@ -30,39 +33,39 @@ const createComment = ({avatar, message}) => {
 }
 
 const createComments = (elements) => {
+  const fragment = document.createDocumentFragment();
   elements.forEach(element => {
-    socialComments.append(createComment(element));
+    fragment.append(createComment(element));
   });
+  return fragment;
+}
+
+const renderBigPicture = ({url, description, likes, comments}) => {
+  bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
+  bigPicture.querySelector('.big-picture__img').querySelector('img').alt = description;
+  bigPicture.querySelector('.social__caption').textContent = description;
+  bigPicture.querySelector('.likes-count').textContent = likes;
+  bigPicture.querySelector('.comments-count').textContent = comments.length;
 }
 
 const showFullPicture = (data) => {
-  const { url, description, likes, comments } = data;
-  // функция добавляется в слушатель событий при создании 1 фотографии (в функцию renderPicture)
-  // она должна:
-    // удалять класс hidden у элемента .big-picture
-    bigPicture.classList.remove('hidden');
+  bigPicture.classList.remove('hidden');
+  body.classList.add('modal-open');
+  commentsCount.style = 'display: none';
+  commentsLoader.style = 'display: none';
 
-    // подставлять адрес картинки в адрес большой фотографии, кол-во лайков и комментариев, описание фото
-    bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
-    bigPicture.querySelector('.big-picture__img').querySelector('img').alt = description;
-    bigPicture.querySelector('.social__caption').textContent = description;
-    bigPicture.querySelector('.likes-count').textContent = likes;
-    bigPicture.querySelector('.comments-count').textContent = comments.length;
+  // подставлять адрес картинки в адрес большой фотографии, кол-во лайков и комментариев, описание фото
+  renderBigPicture(data);
 
-    // вставлять комментарии под фото
-    createComments(comments);
+  // вставлять комментарии под фото
+  socialComments.innerHTML = '';
+  socialComments.append(createComments(data.comments));
 
-    // после открытия окна спрятать блок счётчика комментариев, загрузки новых коммент
-    bigPicture.querySelector('.social__comment-count').style = 'display: none';
-    bigPicture.querySelector('.comments-loader').style = 'display: none';
+  // после открытия окна должен навешиваться слушатель для закрытия окна на esc
+  closeFullPicture();
 
-    // после открытия окна добавить боди класс модал опен
-    document.querySelector('body').classList.add('modal-open');
-    console.log(document.querySelector('body'));
-    // после открытия окна должен навешиваться слушатель для закрытия окна на esc
-    closeFullPicture();
 
-    // при закрытии окна удалять класс модал опен у боди - complete!!!
+  // при закрытии окна удалять класс модал опен у боди - complete!!!
 
 }
 
