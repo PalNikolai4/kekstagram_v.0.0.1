@@ -1,4 +1,4 @@
-import { showFullPicture } from "./big-picture.js";
+import { openFullPicture } from "./big-picture.js";
 
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const picturesContainer = document.querySelector('.pictures');
@@ -12,7 +12,7 @@ const renderPicture = (data) => {
   picture.querySelector('.picture__comments').textContent = comments.length;
   picture.querySelector('.picture__likes').textContent = likes;
   picture.addEventListener('click', () => {
-    showFullPicture(data);
+    openFullPicture(data);
   });
   return picture;
 }

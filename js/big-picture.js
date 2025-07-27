@@ -42,27 +42,22 @@ const renderBigPicture = ({ url, description, likes, comments }) => {
   bigPicture.querySelector('.comments-count').textContent = comments.length;
 }
 
-// нужна функция, которая будет находиться в showFullPicture и вызывать функции:
-// - вешатель слушателя клика на кнопку закрытия
-// - вешатель слушателя клика на кнопку esc
-// - вешатель слушателя клика на оверлей
-// - каждая из этих функций будет закрывать окно и вызывать функции по удалению слушателей
-const hideFullPicture = () => {
+const closeFullPicture = () => {
   body.classList.remove('modal-open');
   bigPicture.classList.add('hidden');
-  closeButton.removeEventListener('click', hideFullPicture);
+  closeButton.removeEventListener('click', closeFullPicture);
   document.removeEventListener('keydown', onEscKeyDown);
 }
 
 const onEscKeyDown = (evt) => {
   if (evt.key === 'Escape') {
-    hideFullPicture();
+    closeFullPicture();
   }
 }
 
 // обьявить функцию закрытия просмотра bigPicture при клике вне области bigPicture
 
-const showFullPicture = (data) => {
+const openFullPicture = (data) => {
   body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
   commentsCount.style = 'display: none';
@@ -74,7 +69,7 @@ const showFullPicture = (data) => {
   socialComments.append(createComments(data.comments));
 
   document.addEventListener('keydown', onEscKeyDown);
-  closeButton.addEventListener('click', hideFullPicture);
+  closeButton.addEventListener('click', closeFullPicture);
 }
 
-export { showFullPicture }
+export { openFullPicture }
