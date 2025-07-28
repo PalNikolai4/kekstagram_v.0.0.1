@@ -50,4 +50,8 @@ const getRandomUniqueNums = (count = 1, rangeStart = 1, rangeEnd = count) => {
   return randomUniqueNumsArray;
 };
 
-export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums };
+const isEsc = (evt) => {
+  return evt.key === 'Escape';
+}
+
+export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums, isEsc };

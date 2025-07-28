@@ -1,3 +1,5 @@
+import { isEsc } from "./utill.js";
+
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const socialComments = bigPicture.querySelector('.social__comments');
@@ -50,7 +52,7 @@ const closeFullPicture = () => {
 }
 
 const onEscKeyDown = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEsc(evt)) {
     closeFullPicture();
   }
 }
