@@ -8,7 +8,7 @@
     "url": "{{sshUrl}}"
   },
   "bugs": {
-    "url": "{{bugsUrl}}"
+    "url": "https://github.com/htmlacademy/intensive-javascript-projects/issues"
   },
   "devDependencies": {
     "browser-sync": "^2.27.7",
