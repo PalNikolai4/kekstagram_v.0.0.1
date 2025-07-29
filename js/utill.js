@@ -54,4 +54,6 @@ const isEsc = (evt) => {
   return evt.key === 'Escape';
 }
 
-export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums, isEsc };
+const clearHtml = (element) => element.innerHTML = '';
+
+export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums, isEsc, clearHtml };

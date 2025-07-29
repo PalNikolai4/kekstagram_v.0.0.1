@@ -1,4 +1,4 @@
-import { isEsc } from "./utill.js";
+import { isEsc, clearHtml } from "./utill.js";
 
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
@@ -65,11 +65,9 @@ const openFullPicture = (data) => {
   commentsCount.style = 'display: none';
   commentsLoader.style = 'display: none';
 
+  clearHtml(socialComments);
   renderBigPicture(data);
-
-  socialComments.innerHTML = '';
   socialComments.append(createComments(data.comments));
-
   document.addEventListener('keydown', onEscKeyDown);
   closeButton.addEventListener('click', closeFullPicture);
 }
