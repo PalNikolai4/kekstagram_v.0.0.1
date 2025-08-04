@@ -47,12 +47,19 @@ const renderBigPicture = ({ url, description, likes, comments }) => {
 const closeFullPicture = () => {
   body.classList.remove('modal-open');
   bigPicture.classList.add('hidden');
-  closeButton.removeEventListener('click', closeFullPicture);
   document.removeEventListener('keydown', onEscKeyDown);
+  bigPicture.removeEventListener('click', onClickOverlay);
+  closeButton.removeEventListener('click', closeFullPicture);
 }
 
 const onEscKeyDown = (evt) => {
   if (isEsc(evt)) {
+    closeFullPicture();
+  }
+}
+
+const onClickOverlay = (evt) => {
+  if (evt.target === bigPicture) {
     closeFullPicture();
   }
 }
@@ -62,6 +69,7 @@ const onEscKeyDown = (evt) => {
 const openFullPicture = (data) => {
   body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
+  bigPicture.addEventListener('click', onClickOverlay);
   commentsCount.style = 'display: none';
   commentsLoader.style = 'display: none';
 
@@ -69,6 +77,7 @@ const openFullPicture = (data) => {
   renderBigPicture(data);
   socialComments.append(createComments(data.comments));
   document.addEventListener('keydown', onEscKeyDown);
+  bigPicture.addEventListener('click', onClickOverlay);
   closeButton.addEventListener('click', closeFullPicture);
 }
 
