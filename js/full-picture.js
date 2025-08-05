@@ -8,7 +8,6 @@ const commentsCount = bigPicture.querySelector('.social__comment-count')
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 
-
 const renderFullPicture = ({ url, description, likes, comments }) => {
   bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
   bigPicture.querySelector('.big-picture__img').querySelector('img').alt = description;
@@ -37,7 +36,6 @@ const onClickOverlay = (evt) => {
   }
 }
 
-// обьявить функцию закрытия просмотра bigPicture при клике вне области bigPicture
 const openFullPicture = (data) => {
   clearHtml(socialComments);
   body.classList.add('modal-open');
