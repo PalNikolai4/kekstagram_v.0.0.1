@@ -20,7 +20,7 @@ const closeFullPicture = () => {
   body.classList.remove('modal-open');
   bigPicture.classList.add('hidden');
   document.removeEventListener('keydown', onEscKeyDown);
-  bigPicture.removeEventListener('click', onClickOverlay);
+  bigPicture.removeEventListener('click', onOverlayClick);
   closeButton.removeEventListener('click', closeFullPicture);
 }
 
@@ -30,7 +30,7 @@ const onEscKeyDown = (evt) => {
   }
 }
 
-const onClickOverlay = (evt) => {
+const onOverlayClick = (evt) => {
   if (evt.target === bigPicture) {
     closeFullPicture();
   }
@@ -40,13 +40,13 @@ const openFullPicture = (data) => {
   clearHtml(socialComments);
   body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
-  bigPicture.addEventListener('click', onClickOverlay);
+  bigPicture.addEventListener('click', onOverlayClick);
   commentsCount.style = 'display: none';
   commentsLoader.style = 'display: none';
   renderFullPicture(data);
   socialComments.append(createComments(data.comments));
   document.addEventListener('keydown', onEscKeyDown);
-  bigPicture.addEventListener('click', onClickOverlay);
+  bigPicture.addEventListener('click', onOverlayClick);
   closeButton.addEventListener('click', closeFullPicture);
 }
 
