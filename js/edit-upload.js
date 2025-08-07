@@ -29,6 +29,18 @@ const showSelectedPhoto = (isClose) => {
   }
 }
 
+const blockingScaleButtonsOnLoading = () => {
+  const currentValue = parseInt(uploadScaleField.value);
+  console.log(currentValue);
+  if (currentValue === 0) {
+    smallerButton.disabled = true;
+  }
+
+  if (currentValue === 100) {
+    biggerButton.disabled = true;
+  }
+}
+
 
 
 const onUploadScaleClick = (evt) => {
@@ -51,4 +63,4 @@ const onUploadScaleClick = (evt) => {
 
 // сделать отдельную функцию которая будет проверять uploadScaleField.value и состояние кнопок
 
-export { showSelectedPhoto, onUploadScaleClick }
+export { showSelectedPhoto, blockingScaleButtonsOnLoading, onUploadScaleClick }
