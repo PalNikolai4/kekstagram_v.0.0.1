@@ -30,6 +30,7 @@ const showSelectedPhoto = (isClose) => {
 }
 
 
+
 const onUploadScaleClick = (evt) => {
   let currentScale = parseInt(uploadScaleField.value);
 
@@ -37,13 +38,13 @@ const onUploadScaleClick = (evt) => {
     currentScale -= 25;
   }
 
+
   if (evt.target === biggerButton) {
     currentScale += 25;
   }
 
-
+  imgUploadPreview.style.transform = `scale(${(currentScale / 100)})`;
   uploadScaleField.value = currentScale + '%';
-  // imgUploadPreview.style.transform = 'scale(1.5)';
 }
 
 
