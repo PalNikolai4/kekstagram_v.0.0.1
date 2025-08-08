@@ -7,10 +7,11 @@ const smallerButton = uploadScale.querySelector('.scale__control--smaller');
 const biggerButton = uploadScale.querySelector('.scale__control--bigger');
 const SCALE_STEP = 25;
 let currentPhotoUrl = null;
+
 // Выбор фотографии и её подстановка в окно просмотра upload
 const showSelectedPhoto = (isClose) => {
   const file = uploadField.files[0];
-  uploadScaleField.value = '100%';
+
   if (!file) return;
   if (!isClose) {
     if (currentPhotoUrl) {
@@ -18,6 +19,8 @@ const showSelectedPhoto = (isClose) => {
     }
     currentPhotoUrl = URL.createObjectURL(file);
     imgUploadPreview.src = currentPhotoUrl;
+    uploadScaleField.value = '100%';
+    imgUploadPreview.style.transform = 'scale(1)';
     uploadScale.addEventListener('click', onUploadScaleClick);
   } else {
     if (currentPhotoUrl) {
@@ -31,13 +34,10 @@ const showSelectedPhoto = (isClose) => {
 
 const blockingScaleButtonsOnLoading = () => {
   const currentValue = parseInt(uploadScaleField.value);
-  if (currentValue === 0) {
-    smallerButton.disabled = true;
-  }
+  (currentValue <= SCALE_STEP) ? (smallerButton.disabled = true) : (smallerButton.disabled = false);
 
-  if (currentValue === 100) {
-    biggerButton.disabled = true;
-  }
+  (currentValue >= 100) ? (biggerButton.disabled = true) : (biggerButton.disabled = false);
+  ((currentValue + SCALE_STEP) > 100) ? (biggerButton.disabled = true) : (biggerButton.disabled = false);
 }
 
 const blockingSmallerButton = (currentScale) => {

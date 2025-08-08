@@ -29,7 +29,7 @@ const closePhotoEditingModal = () => {
   document.removeEventListener('keydown', onEscKeyDown);
   closeButton.removeEventListener('click', closePhotoEditingModal);
   uploadOverlay.removeEventListener('click', onUploadOverlayClick);
-  // uploadScale.removeEventListener('click', onUploadScaleClick);
+  uploadScale.removeEventListener('click', onUploadScaleClick);
     showSelectedPhoto(true);
 }
 
