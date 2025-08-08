@@ -30,7 +30,7 @@ const closePhotoEditingModal = () => {
   closeButton.removeEventListener('click', closePhotoEditingModal);
   uploadOverlay.removeEventListener('click', onUploadOverlayClick);
   uploadScale.removeEventListener('click', onUploadScaleClick);
-    showSelectedPhoto(true);
+  showSelectedPhoto(true);
 }
 
 const onEscKeyDown = (evt) => {
