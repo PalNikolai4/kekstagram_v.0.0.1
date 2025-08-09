@@ -1,7 +1,7 @@
 # Личный проект «Kekstagram_v.0.0.1»
 
-* Студент: [PalNikolai4]({https://github.com/PalNikolai4}).
-* Наставник: `Кекс`.
+* Студент: [PalNikolai4](https://github.com/PalNikolai4).
+* Наставник: [Кекс](https://htmlacademy.ru/frontender-diy).
 
 ---
 

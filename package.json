@@ -8,12 +8,12 @@
     "url": "{{sshUrl}}"
   },
   "bugs": {
-    "url": "{{bugsUrl}}"
+    "url": "https://github.com/htmlacademy/intensive-javascript-projects/issues"
   },
   "devDependencies": {
-    "browser-sync": "2.27.7",
-    "eslint": "8.7.0",
-    "eslint-config-htmlacademy": "5.0.0"
+    "browser-sync": "^2.27.7",
+    "eslint": "^8.7.0",
+    "eslint-config-htmlacademy": "^5.0.0"
   },
   "license": "MIT",
   "dependencies": {},
