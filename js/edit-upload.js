@@ -12,7 +12,7 @@ let currentPhotoUrl = null;
 const showSelectedPhoto = (isClose) => {
   const file = uploadField.files[0];
 
-  if (!file) return;
+  if (!file) { return; }
   if (!isClose) {
     if (currentPhotoUrl) {
       URL.revokeObjectURL(currentPhotoUrl);
@@ -30,28 +30,60 @@ const showSelectedPhoto = (isClose) => {
     uploadField.value = '';
     uploadScale.removeEventListener('click', onUploadScaleClick);
   }
-}
+};
 
 const blockingScaleButtonsOnLoading = () => {
-  const currentValue = parseInt(uploadScaleField.value);
-  (currentValue <= SCALE_STEP) ? (smallerButton.disabled = true) : (smallerButton.disabled = false);
+  const currentValue = parseInt(uploadScaleField.value, 10);
 
-  (currentValue >= 100) ? (biggerButton.disabled = true) : (biggerButton.disabled = false);
-  ((currentValue + SCALE_STEP) > 100) ? (biggerButton.disabled = true) : (biggerButton.disabled = false);
-}
+  if (currentValue <= SCALE_STEP) {
+    smallerButton.disabled = true;
+  } else {
+    smallerButton.disabled = false;
+  }
+
+  if (currentValue >= 100) {
+    biggerButton.disabled = true;
+  } else {
+    biggerButton.disabled = false;
+  }
+
+  if ((currentValue + SCALE_STEP) > 100) {
+    biggerButton.disabled = true;
+  } else {
+    biggerButton.disabled = false;
+  }
+};
 
 const blockingSmallerButton = (currentScale) => {
-  (biggerButton.disabled) ? (biggerButton.disabled = false) : (biggerButton.disabled = true);
-  (currentScale - SCALE_STEP <= 25) ? (smallerButton.disabled = true) : (smallerButton.disabled = false);
-}
+  if (biggerButton.disabled) {
+    biggerButton.disabled = false;
+  } else {
+    biggerButton.disabled = true;
+  }
+
+  if (currentScale - SCALE_STEP <= 25) {
+    smallerButton.disabled = true;
+  } else {
+    smallerButton.disabled = false;
+  }
+};
 
 const blockingBiggerButton = (currentScale) => {
-  (smallerButton.disabled) ? (smallerButton.disabled = false) : (smallerButton.disabled = true);
-  (currentScale + SCALE_STEP >= 100) ? (biggerButton.disabled = true) : (biggerButton.disabled = false);
-}
+  if (smallerButton.disabled) {
+    smallerButton.disabled = false;
+  } else {
+    smallerButton.disabled = true;
+  }
 
-const onUploadScaleClick = (evt) => {
-  let currentScale = parseInt(uploadScaleField.value);
+  if (currentScale + SCALE_STEP >= 100) {
+    biggerButton.disabled = true;
+  } else {
+    biggerButton.disabled = false;
+  }
+};
+
+function onUploadScaleClick (evt) {
+  let currentScale = parseInt(uploadScaleField.value, 10);
 
   if (evt.target === smallerButton) {
     blockingSmallerButton(currentScale);
@@ -65,11 +97,7 @@ const onUploadScaleClick = (evt) => {
   }
 
   imgUploadPreview.style.transform = `scale(${(currentScale / 100)})`;
-  uploadScaleField.value = currentScale + '%';
+  uploadScaleField.value = `${currentScale}%`;
 }
 
-
-
-// сделать отдельную функцию которая будет проверять uploadScaleField.value и состояние кнопок
-
-export { showSelectedPhoto, blockingScaleButtonsOnLoading, onUploadScaleClick }
+export { showSelectedPhoto, blockingScaleButtonsOnLoading, onUploadScaleClick };

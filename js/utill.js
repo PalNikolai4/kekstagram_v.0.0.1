@@ -50,10 +50,10 @@ const getRandomUniqueNums = (count = 1, rangeStart = 1, rangeEnd = count) => {
   return randomUniqueNumsArray;
 };
 
-const isEsc = (evt) => {
-  return evt.key === 'Escape';
-}
-
-const clearHtml = (element) => element.innerHTML = '';
+const isEsc = (evt) => evt.key === 'Escape';
+const clearHtml = (element) => {
+  element.innerHTML = '';
+  return element;
+};
 
 export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums, isEsc, clearHtml };
