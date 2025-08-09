@@ -1,5 +1,6 @@
 import { isEsc } from './utill.js';
 import { showSelectedPhoto, blockingScaleButtonsOnLoading, onUploadScaleClick } from './edit-upload.js';
+import { addedDefaultEffectClass } from './effects-upload.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
@@ -19,6 +20,7 @@ const openPhotoEditingModal = () => {
     showSelectedPhoto();
     blockingScaleButtonsOnLoading();
     uploadScale.addEventListener('click', onUploadScaleClick);
+    addedDefaultEffectClass();
   })
 }
 
