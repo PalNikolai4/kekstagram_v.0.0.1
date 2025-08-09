@@ -6,24 +6,28 @@ const removeClass = () => {
   const imgUploadClasses = imgUploadPreview.classList;
 
   imgUploadClasses
-  .forEach(imgUploadClass => {
-    const isIncludes = imgUploadClass.includes('effects__preview--');
-    if ( isIncludes ) imgUploadClasses.remove(imgUploadClass);
-  });
-}
+    .forEach((imgUploadClass) => {
+      const isIncludes = imgUploadClass.includes('effects__preview--');
+      if (isIncludes) {
+        imgUploadClasses.remove(imgUploadClass);
+      }
+    });
+};
 
 const addedDefaultEffectClass = () => {
   imgUploadPreview.classList.add('effects__preview--none');
-}
+};
 
 const getEffectClass = (input) => {
   const changeInput = input.matches('input[type="radio"]:checked');
-  if (changeInput) return (`effects__preview--${input.value}`);
-}
+  if (changeInput) {
+    return (`effects__preview--${input.value}`);
+  }
+};
 
 const useEffectClass = (effectClass) => {
   imgUploadPreview.classList.add(effectClass);
-}
+};
 
 effectsList.addEventListener('change', (evt) => {
   removeClass();
@@ -31,6 +35,6 @@ effectsList.addEventListener('change', (evt) => {
   const effectClass = getEffectClass(evt.target);
   useEffectClass(effectClass);
 
-})
+});
 
-export { addedDefaultEffectClass, removeClass }
+export { addedDefaultEffectClass, removeClass };

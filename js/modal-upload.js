@@ -10,7 +10,19 @@ const closeButton = form.querySelector('.img-upload__cancel');
 const uploadOverlay = form.querySelector('.img-upload__overlay');
 const uploadScale = form.querySelector('.img-upload__scale');
 
-const openPhotoEditingModal = () => {
+const onEscKeyDown = (evt) => {
+  if (isEsc(evt)) {
+    closePhotoEditingModal();
+  }
+};
+
+const onUploadOverlayClick = (evt) => {
+  if (evt.target === uploadOverlay) {
+    closePhotoEditingModal();
+  }
+};
+
+function openPhotoEditingModal () {
   uploadField.addEventListener('change', () => {
     body.classList.add('modal-open');
     imgUploadOverlay.classList.remove('hidden');
@@ -22,10 +34,10 @@ const openPhotoEditingModal = () => {
     uploadScale.addEventListener('click', onUploadScaleClick);
     removeClass();
     addedDefaultEffectClass();
-  })
+  });
 }
 
-const closePhotoEditingModal = () => {
+function closePhotoEditingModal () {
   body.classList.remove('modal-open');
   imgUploadOverlay.classList.add('hidden');
 
@@ -36,16 +48,4 @@ const closePhotoEditingModal = () => {
   showSelectedPhoto(true);
 }
 
-const onEscKeyDown = (evt) => {
-  if (isEsc(evt)) {
-    closePhotoEditingModal();
-  }
-}
-
-const onUploadOverlayClick = (evt) => {
-  if (evt.target === uploadOverlay) {
-    closePhotoEditingModal();
-  }
-}
-
-export { openPhotoEditingModal }
+export { openPhotoEditingModal };

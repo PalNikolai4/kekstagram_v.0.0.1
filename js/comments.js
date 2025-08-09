@@ -1,9 +1,11 @@
 const createElement = (tagName, className, text) => {
   const element = document.createElement(tagName);
   element.classList.add(className);
-  if (text) element.textContent = text;
+  if (text) {
+    element.textContent = text;
+  }
   return element;
-}
+};
 
 const createComment = ({ avatar, name, message }) => {
   const comment = createElement('li', 'social__comment');
@@ -16,14 +18,14 @@ const createComment = ({ avatar, name, message }) => {
   comment.append(commentAvatar);
   comment.append(commentText);
   return comment;
-}
+};
 
 const createComments = (elements) => {
   const fragment = document.createDocumentFragment();
-  elements.forEach(element => {
+  elements.forEach((element) => {
     fragment.append(createComment(element));
   });
   return fragment;
-}
+};
 
-export { createComments }
+export { createComments };
