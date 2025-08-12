@@ -1,6 +1,7 @@
 import { isEsc } from './utill.js';
 import { showSelectedPhoto, blockingScaleButtonsOnLoading, onUploadScaleClick } from './edit-upload.js';
 import { removeClass, addedDefaultEffectClass, useEffects } from './effects-upload.js';
+import { useEffectLevel } from './slider-upload.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
@@ -24,6 +25,7 @@ const onUploadOverlayClick = (evt) => {
 };
 
 const onUseEffects = (evt) => useEffects(evt.target);
+const onUseEffectLevel = (evt) => useEffectLevel(evt.target);
 
 function openPhotoEditingModal () {
   uploadField.addEventListener('change', () => {
@@ -39,6 +41,7 @@ function openPhotoEditingModal () {
     addedDefaultEffectClass();
 
     effectsList.addEventListener('change', onUseEffects);
+    effectsList.addEventListener('change', onUseEffectLevel);
   });
 }
 
