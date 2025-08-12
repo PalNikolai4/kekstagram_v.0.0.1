@@ -1,6 +1,6 @@
 import { isEsc } from './utill.js';
 import { showSelectedPhoto, blockingScaleButtonsOnLoading, onUploadScaleClick } from './edit-upload.js';
-import { addedDefaultEffectClass, removeClass } from './effects-upload.js';
+import { removeClass, addedDefaultEffectClass, useEffects } from './effects-upload.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
@@ -9,6 +9,7 @@ const uploadField = form.querySelector('#upload-file');
 const closeButton = form.querySelector('.img-upload__cancel');
 const uploadOverlay = form.querySelector('.img-upload__overlay');
 const uploadScale = form.querySelector('.img-upload__scale');
+const effectsList = form.querySelector('.effects__list');
 
 const onEscKeyDown = (evt) => {
   if (isEsc(evt)) {
@@ -22,18 +23,22 @@ const onUploadOverlayClick = (evt) => {
   }
 };
 
+const onUseEffects = (evt) => useEffects(evt.target);
+
 function openPhotoEditingModal () {
   uploadField.addEventListener('change', () => {
     body.classList.add('modal-open');
     imgUploadOverlay.classList.remove('hidden');
-    document.addEventListener('keydown', onEscKeyDown);
-    closeButton.addEventListener('click', closePhotoEditingModal);
-    uploadOverlay.addEventListener('click', onUploadOverlayClick);
     showSelectedPhoto();
     blockingScaleButtonsOnLoading();
+    document.addEventListener('keydown', onEscKeyDown);
+    uploadOverlay.addEventListener('click', onUploadOverlayClick);
+    closeButton.addEventListener('click', closePhotoEditingModal);
     uploadScale.addEventListener('click', onUploadScaleClick);
     removeClass();
     addedDefaultEffectClass();
+
+    effectsList.addEventListener('change', onUseEffects);
   });
 }
 
@@ -42,9 +47,10 @@ function closePhotoEditingModal () {
   imgUploadOverlay.classList.add('hidden');
 
   document.removeEventListener('keydown', onEscKeyDown);
-  closeButton.removeEventListener('click', closePhotoEditingModal);
   uploadOverlay.removeEventListener('click', onUploadOverlayClick);
+  closeButton.removeEventListener('click', closePhotoEditingModal);
   uploadScale.removeEventListener('click', onUploadScaleClick);
+  effectsList.removeEventListener('change', onUseEffects);
   showSelectedPhoto(true);
 }
 
