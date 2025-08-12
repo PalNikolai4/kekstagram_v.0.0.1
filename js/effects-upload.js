@@ -29,12 +29,10 @@ const useEffectClass = (effectClass) => {
   imgUploadPreview.classList.add(effectClass);
 };
 
-effectsList.addEventListener('change', (evt) => {
+const useEffects = (evt) => {
   removeClass();
-
-  const effectClass = getEffectClass(evt.target);
+  const effectClass = getEffectClass(evt);
   useEffectClass(effectClass);
+}
 
-});
-
-export { addedDefaultEffectClass, removeClass };
+export { removeClass, addedDefaultEffectClass, useEffects };
