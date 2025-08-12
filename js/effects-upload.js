@@ -1,6 +1,5 @@
 const form = document.querySelector('.img-upload__form');
 const imgUploadPreview = form.querySelector('.img-upload__preview').querySelector('img');
-const effectsList = form.querySelector('.effects__list');
 
 const removeClass = () => {
   const imgUploadClasses = imgUploadPreview.classList;
@@ -33,6 +32,6 @@ const useEffects = (evt) => {
   removeClass();
   const effectClass = getEffectClass(evt);
   useEffectClass(effectClass);
-}
+};
 
 export { removeClass, addedDefaultEffectClass, useEffects };
