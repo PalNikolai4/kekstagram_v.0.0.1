@@ -7,81 +7,76 @@ const effectSlider = effectLevel.querySelector('.effect-level__slider');
 // сделать функцией и отправить в main
 const createdEffectsSlider = () => {
   noUiSlider.create(effectSlider, {
-    start: 0.3,
+    start: 1,
     range: {
       'min': 0,
       'max': 1
     },
     step: 0.1,
     connect: 'lower'
+  });
+  effectSlider.setAttribute('disabled', true);
+  effectSlider.style.display = 'none';
+}
+
+const DEFAULT_EFFECT_VALUES = { min: 0, max: 1, step: 0.1 };
+const getUpdateSlider = (value) => {
+  const updatedEffectValues = { ...DEFAULT_EFFECT_VALUES };
+
+  switch (value) {
+    case 'chrome':
+    case 'sepia':
+      break;
+    case 'marvin':
+      Object.assign(updatedEffectValues, { max: 100, step: 1 });
+      break;
+    case 'phobos':
+      Object.assign(updatedEffectValues, { max: 3 });
+      break;
+    case 'heat':
+      Object.assign(updatedEffectValues, { min: 1, max: 3 });
+      break;
+    case 'none':
+    default:
+      break;
+  }
+  return updatedEffectValues;
+}
+
+const setUpdateSlider = ({ min, max, step }) => {
+  effectSlider.noUiSlider.updateOptions({
+    range: {
+      'min': min,
+      'max': max
+    },
+    'start': max,
+    'step': step
   })
 }
 
-
-const setUpdateSlider = (min, max, step, isDisabled) => {
-  effectSlider.noUiSlider.updateOptions({
-      range: {
-        'min': min,
-        'max': max
-      },
-      'start': max,
-      'step': step
-    });
-    effectSlider.setAttribute('disabled', isDisabled);
-}
-
-const DEFAULT_EFFECT_VALUES = {min: 0, max: 0, step: 0, isDisabled: false};
-
-const getEffectValue = (value) => {
-  let {min = 10, max, step, isDisabled = true} = DEFAULT_EFFECT_VALUES;
+const locksUnlocksSlider = (value) => {
   switch (value) {
     case 'chrome':
-      // min = 0;
-      max = 1;
-      step = 0.1;
-      // isDisabled = true;
-      // updateValue = {0, 1, 0.1, false};
+    case 'sepia':
+    case 'marvin':
+    case 'phobos':
+    case 'heat':
+      effectSlider.removeAttribute('disabled');
+      effectSlider.style.display = 'block';
       break;
-    // case 'sepia':
-    //   // {0, 1, 0.1, false};
-    //   updateValue[min] = 0;
-    //   updateValue[max] = 1;
-    //   updateValue[step] = 0.1;
-    //   updateValue[isDisabled] = false;
-    //   break;
-    // case 'marvin':
-    //   // {1, 100, 1, false};
-    //   updateValue[min] = 1;
-    //   updateValue[max] = 100;
-    //   updateValue[step] = 1;
-    //   updateValue[isDisabled] = false;
-    //   break;
-    // case 'phobos':
-    //   // {0, 3, 0.1, false};
-    //   updateValue[min] = 0;
-    //   updateValue[max] = 3;
-    //   updateValue[step] = 0.1;
-    //   updateValue[isDisabled] = false;
-    //   break;
-    // case 'heat':
-    //   // {1, 3, 0.1, false};
-    //   updateValue[min] = 1;
-    //   updateValue[max] = 3;
-    //   updateValue[step] = 0.1;
-    //   updateValue[isDisabled] = false;
-    //   break;
-    // case 'none':
-    // default:
-      updateValue[isDisabled] = true;
+    case 'none':
+    default:
+      effectSlider.style.display = 'none';
+      effectSlider.setAttribute('disabled', true);
+      break;
   }
-  return {min, max, step, isDisabled};
 }
 
 const useEffectLevel = (evt) => {
-  const updateValue = getEffectValue(evt.value);
-
-  // setUpdateSlider(updateValue);
-  console.log(updateValue);
+  const updatedValue = getUpdateSlider(evt.value);
+  // console.log(updatedValue);
+  setUpdateSlider(updatedValue);
+  locksUnlocksSlider(evt.value);
 }
 
 
