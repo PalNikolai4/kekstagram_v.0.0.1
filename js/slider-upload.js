@@ -14,17 +14,16 @@ const createdEffectsSlider = () => {
     },
     step: 0.1,
     connect: 'lower',
-    format: {
-      to: function (value) {
-        return value.toFixed(1);
-      },
-      from: function (value) {
-        return value.toFixed(1);
-      }
-    }
   });
   effectSlider.setAttribute('disabled', true);
   effectSlider.style.display = 'none';
+}
+
+const updateEffectValue = () => {
+  effectSlider.noUiSlider.on('update', () => {
+    effectField.value = effectSlider.noUiSlider.get();
+    console.log(`effectField.value: ${effectField.value}`);
+  });
 }
 
 const DEFAULT_EFFECT_VALUES = { min: 0, max: 1, step: 0.1 };
@@ -86,13 +85,15 @@ const useEffectLevel = (evt) => {
   const updatedValue = getUpdateSlider(evt.value);
   setUpdateSlider(updatedValue);
   locksUnlocksSlider(evt.value);
-
+  updateEffectValue();
 }
+
+
 
 // функция, при изменении (update) слайдера:
   // записывает значение в value инпута (effectField.value)
   // применяет соответствующие стили к картинке
 
-
-
 export { createdEffectsSlider, useEffectLevel }
+// createdEffectsSlider -> main.js
+//  useEffectLevel -> modal-upload.js -> onUseEffectLevel 'change'
