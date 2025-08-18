@@ -54,6 +54,7 @@ function closePhotoEditingModal () {
   closeButton.removeEventListener('click', closePhotoEditingModal);
   uploadScale.removeEventListener('click', onUploadScaleClick);
   effectsList.removeEventListener('change', onUseEffects);
+  effectsList.removeEventListener('change', onUseEffectLevel);
   showSelectedPhoto(true);
 }
 

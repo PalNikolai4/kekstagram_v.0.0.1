@@ -13,7 +13,15 @@ const createdEffectsSlider = () => {
       'max': 1
     },
     step: 0.1,
-    connect: 'lower'
+    connect: 'lower',
+    format: {
+      to: function (value) {
+        return value.toFixed(1);
+      },
+      from: function (value) {
+        return value.toFixed(1);
+      }
+    }
   });
   effectSlider.setAttribute('disabled', true);
   effectSlider.style.display = 'none';
@@ -72,33 +80,19 @@ const locksUnlocksSlider = (value) => {
   }
 }
 
+
+
 const useEffectLevel = (evt) => {
   const updatedValue = getUpdateSlider(evt.value);
-  // console.log(updatedValue);
   setUpdateSlider(updatedValue);
   locksUnlocksSlider(evt.value);
+
 }
 
+// функция, при изменении (update) слайдера:
+  // записывает значение в value инпута (effectField.value)
+  // применяет соответствующие стили к картинке
 
 
 
-
-
-
-
-
-
-
-
-// 1. создать slider
-
-// 2. getEffectClass from effects-upload.js
-// if getEffectClass === effects__preview--none - slider{"disable", true}
-// else { slider{"disable", false} }
-
-// 3. применять эффекты
-
-
-// добавлять итоговую функцию наверное нужно в функцию openPhotoEditingModal модуля modal-upload.js в виде слушателя события 'change' на элемент effectsList
-// export ''
 export { createdEffectsSlider, useEffectLevel }
