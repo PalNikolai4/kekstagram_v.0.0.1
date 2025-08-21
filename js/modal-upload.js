@@ -2,6 +2,7 @@ import { isEsc } from './utill.js';
 import { showSelectedPhoto, blockingScaleButtonsOnLoading, onUploadScaleClick } from './edit-upload.js';
 import { removeClass, addedDefaultEffectClass, useEffects } from './effects-upload.js';
 import { useEffectLevel } from './slider-upload.js';
+import { createdEffectsSlider, removeEffectsSlider } from './slider-upload.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
@@ -37,22 +38,22 @@ function openPhotoEditingModal () {
     uploadOverlay.addEventListener('click', onUploadOverlayClick);
     closeButton.addEventListener('click', closePhotoEditingModal);
     uploadScale.addEventListener('click', onUploadScaleClick);
-    removeClass();
-    addedDefaultEffectClass();
-
+    createdEffectsSlider();
     effectsList.addEventListener('change', onUseEffects);
     effectsList.addEventListener('change', onUseEffectLevel);
+    removeClass();
+    addedDefaultEffectClass();
   });
 }
 
 function closePhotoEditingModal () {
   body.classList.remove('modal-open');
   imgUploadOverlay.classList.add('hidden');
-
   document.removeEventListener('keydown', onEscKeyDown);
   uploadOverlay.removeEventListener('click', onUploadOverlayClick);
   closeButton.removeEventListener('click', closePhotoEditingModal);
   uploadScale.removeEventListener('click', onUploadScaleClick);
+  removeEffectsSlider();
   effectsList.removeEventListener('change', onUseEffects);
   effectsList.removeEventListener('change', onUseEffectLevel);
   showSelectedPhoto(true);
