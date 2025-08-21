@@ -1,10 +1,10 @@
 const form = document.querySelector('.img-upload__form');
 const effectLevel = form.querySelector('.effect-level');
+const imgUploadPreview = form.querySelector('.img-upload__preview').querySelector('img');
 const effectField = effectLevel.querySelector('.effect-level__value');
 const effectSlider = effectLevel.querySelector('.effect-level__slider');
 
 
-// сделать функцией и отправить в main
 const createdEffectsSlider = () => {
   noUiSlider.create(effectSlider, {
     start: 1,
@@ -17,13 +17,6 @@ const createdEffectsSlider = () => {
   });
   effectSlider.setAttribute('disabled', true);
   effectSlider.style.display = 'none';
-}
-
-const updateEffectValue = () => {
-  effectSlider.noUiSlider.on('update', () => {
-    effectField.value = effectSlider.noUiSlider.get();
-    console.log(`effectField.value: ${effectField.value}`);
-  });
 }
 
 const DEFAULT_EFFECT_VALUES = { min: 0, max: 1, step: 0.1 };
@@ -79,21 +72,53 @@ const locksUnlocksSlider = (value) => {
   }
 }
 
-
-
-const useEffectLevel = (evt) => {
-  const updatedValue = getUpdateSlider(evt.value);
-  setUpdateSlider(updatedValue);
-  locksUnlocksSlider(evt.value);
-  updateEffectValue();
+const applyEffectPhoto = (effectName, effectValue, srcPhoto) => {
+  switch (effectName) {
+    case 'chrome':
+      srcPhoto.style.filter = `grayscale(${effectValue})`;
+      break;
+    case 'sepia':
+      srcPhoto.style.filter = `sepia(${effectValue})`;
+      break;
+    case 'marvin':
+      srcPhoto.style.filter = `invert(${effectValue}%)`;
+      break;
+    case 'phobos':
+      srcPhoto.style.filter = `blur(${effectValue}px)`;
+      break;
+    case 'heat':
+      srcPhoto.style.filter = `brightness(${effectValue})`;
+      break;
+    case 'none':
+    default:
+      srcPhoto.style.filter = `none`;
+      break;
+  }
+  // console.log(srcPhoto.style.filter);
 }
 
+const useEffectLevel = (evt) => {
+  effectSlider.noUiSlider.off('update');
+  const updatedValue = getUpdateSlider(evt.value);
+  console.log(`${updatedValue.max}`);
+  setUpdateSlider(updatedValue);
+  locksUnlocksSlider(evt.value);
 
+  const effectName = evt.value;
+  let countAfterDecimal = null;
+  let effectValue = null;
+  const onUpdateEffectValue = () => {
+    effectValue = Number(effectSlider.noUiSlider.get());
+    Number.isInteger(effectValue) ? countAfterDecimal = 0 : countAfterDecimal = 1;
+    effectValue = Number(effectValue).toFixed(countAfterDecimal);
+    effectField.value = effectValue;
+    applyEffectPhoto(effectName, effectValue, imgUploadPreview);
+  }
 
-// функция, при изменении (update) слайдера:
-  // записывает значение в value инпута (effectField.value)
-  // применяет соответствующие стили к картинке
+  effectSlider.noUiSlider.on('update', onUpdateEffectValue);
+}
 
 export { createdEffectsSlider, useEffectLevel }
-// createdEffectsSlider -> main.js
+// createdEffectsSlider -> main.js - перенести из мэйн в функцию открытия окна с фото
+// сделать функцию по уничтожению слайдера и вызывать её при закрытии окна с фото
 //  useEffectLevel -> modal-upload.js -> onUseEffectLevel 'change'
