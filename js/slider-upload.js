@@ -19,6 +19,11 @@ const createdEffectsSlider = () => {
   effectSlider.style.display = 'none';
 }
 
+const removeEffectsSlider = () => {
+  effectSlider.noUiSlider.destroy();
+  imgUploadPreview.removeAttribute('style');
+}
+
 const DEFAULT_EFFECT_VALUES = { min: 0, max: 1, step: 0.1 };
 const getUpdateSlider = (value) => {
   const updatedEffectValues = { ...DEFAULT_EFFECT_VALUES };
@@ -94,13 +99,11 @@ const applyEffectPhoto = (effectName, effectValue, srcPhoto) => {
       srcPhoto.style.filter = `none`;
       break;
   }
-  // console.log(srcPhoto.style.filter);
 }
 
 const useEffectLevel = (evt) => {
   effectSlider.noUiSlider.off('update');
   const updatedValue = getUpdateSlider(evt.value);
-  console.log(`${updatedValue.max}`);
   setUpdateSlider(updatedValue);
   locksUnlocksSlider(evt.value);
 
@@ -118,7 +121,7 @@ const useEffectLevel = (evt) => {
   effectSlider.noUiSlider.on('update', onUpdateEffectValue);
 }
 
-export { createdEffectsSlider, useEffectLevel }
+export { createdEffectsSlider, removeEffectsSlider, useEffectLevel }
 // createdEffectsSlider -> main.js - перенести из мэйн в функцию открытия окна с фото
 // сделать функцию по уничтожению слайдера и вызывать её при закрытии окна с фото
 //  useEffectLevel -> modal-upload.js -> onUseEffectLevel 'change'
