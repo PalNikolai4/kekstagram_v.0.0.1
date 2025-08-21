@@ -17,12 +17,12 @@ const createdEffectsSlider = () => {
   });
   effectSlider.setAttribute('disabled', true);
   effectSlider.style.display = 'none';
-}
+};
 
 const removeEffectsSlider = () => {
   effectSlider.noUiSlider.destroy();
   imgUploadPreview.removeAttribute('style');
-}
+};
 
 const DEFAULT_EFFECT_VALUES = { min: 0, max: 1, step: 0.1 };
 const getUpdateSlider = (value) => {
@@ -46,7 +46,7 @@ const getUpdateSlider = (value) => {
       break;
   }
   return updatedEffectValues;
-}
+};
 
 const setUpdateSlider = ({ min, max, step }) => {
   effectSlider.noUiSlider.updateOptions({
@@ -56,8 +56,8 @@ const setUpdateSlider = ({ min, max, step }) => {
     },
     'start': max,
     'step': step
-  })
-}
+  });
+};
 
 const locksUnlocksSlider = (value) => {
   switch (value) {
@@ -75,7 +75,7 @@ const locksUnlocksSlider = (value) => {
       effectSlider.setAttribute('disabled', true);
       break;
   }
-}
+};
 
 const applyEffectPhoto = (effectName, effectValue, srcPhoto) => {
   switch (effectName) {
@@ -96,10 +96,10 @@ const applyEffectPhoto = (effectName, effectValue, srcPhoto) => {
       break;
     case 'none':
     default:
-      srcPhoto.style.filter = `none`;
+      srcPhoto.style.filter = 'none';
       break;
   }
-}
+};
 
 const useEffectLevel = (evt) => {
   effectSlider.noUiSlider.off('update');
@@ -112,16 +112,17 @@ const useEffectLevel = (evt) => {
   let effectValue = null;
   const onUpdateEffectValue = () => {
     effectValue = Number(effectSlider.noUiSlider.get());
-    Number.isInteger(effectValue) ? countAfterDecimal = 0 : countAfterDecimal = 1;
+    if (Number.isInteger(effectValue)) {
+      countAfterDecimal = 0;
+    } else {
+      countAfterDecimal = 1;
+    }
     effectValue = Number(effectValue).toFixed(countAfterDecimal);
     effectField.value = effectValue;
     applyEffectPhoto(effectName, effectValue, imgUploadPreview);
-  }
+  };
 
   effectSlider.noUiSlider.on('update', onUpdateEffectValue);
-}
+};
 
-export { createdEffectsSlider, removeEffectsSlider, useEffectLevel }
-// createdEffectsSlider -> main.js - перенести из мэйн в функцию открытия окна с фото
-// сделать функцию по уничтожению слайдера и вызывать её при закрытии окна с фото
-//  useEffectLevel -> modal-upload.js -> onUseEffectLevel 'change'
+export { createdEffectsSlider, removeEffectsSlider, useEffectLevel };

@@ -8,7 +8,6 @@ const biggerButton = uploadScale.querySelector('.scale__control--bigger');
 const SCALE_STEP = 25;
 let currentPhotoUrl = null;
 
-// Выбор фотографии и её подстановка в окно просмотра upload
 const showSelectedPhoto = (isClose) => {
   const file = uploadField.files[0];
 
