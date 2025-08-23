@@ -62,11 +62,11 @@ const getArrFromStr = (stringValue) => {
     array[index] = element.toLowerCase();
   });
   return arr;
-}
+};
 
 const checksForDuplicates = (arr) => {
   const uniqueElements = new Set(arr);
   return (arr.length === uniqueElements.size);
-}
+};
 
 export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums, isEsc, clearHtml, getArrFromStr, checksForDuplicates };
