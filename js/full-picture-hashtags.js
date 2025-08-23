@@ -1,3 +1,5 @@
+import { getArrFromStr, checksForDuplicates } from './utill.js';
+
 const form = document.querySelector('.img-upload__form');
 const imgUploadFieldset = form.querySelector('.img-upload__text');
 const hashtagsField = imgUploadFieldset.querySelector('.text__hashtags');
@@ -8,36 +10,44 @@ const pristine = new Pristine(form, {
   errorTextClass: 'img-upload__text-error'
 });
 
-const validateHashtag = (value) => {
-  return value &&
-    value.length >= 2 &&
-    value.length <= 20 &&
-    /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/.test(value);
-}
+const validateHashtag = (value) =>
+  value &&
+  value.length >= 2 &&
+  value.length <= 20 &&
+  /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/.test(value);
 
 const validateHashtags = () => {
-  let errorMessage = null;
+  const hashtags = getArrFromStr(hashtagsField.value);
+  const hasDublicate = checksForDuplicates(hashtags);
+  const isValid = hashtags.every((hashtag) => validateHashtag(hashtag));
+  return hasDublicate && isValid;
+};
 
-  const hashtags = hashtagsField.value.split(' ');
+const getHashtagsErrorMessage = () => {
+  let errorMessage = '';
+  const hashtags = getArrFromStr(hashtagsField.value);
 
-  hashtags.forEach((hashtag, index, array) => {
-    array[index] = hashtag.toLowerCase();
-  });
+  const isValid = hashtags.every((hashtag) => validateHashtag(hashtag));
+  if (!isValid) {
+    errorMessage += '\nТеги должны начинаться с символа # и состоять только из букв и (или) цифр. Тег не может быть короче 2 символов.';
+  }
 
-  const uniqueElements = new Set(hashtags);
-  const isHasDublicate = (hashtags.length === uniqueElements.size);
-  if (!isHasDublicate) {errorMessage = 'Повторяющиеся тэги недопустимы.'};
+  if (hashtags.length > 5) {
+    errorMessage += '\nМаксимальное число тегов - 5.';
+  }
 
-  const isValid = hashtags.every(hashtag => validateHashtag(hashtag));
-  // #qwErTYuI123 #QDKJNCSkjnkj #323eDSAKJ #323edsakj
-  console.log(errorMessage);
-}
+  const hasDublicate = checksForDuplicates(hashtags);
+  if (!hasDublicate) {
+    errorMessage += '\nПовторяющиеся теги недопустимы. Теги в разном регистре считаются одинаковыми.';
+  }
+  return errorMessage;
+};
 
-// pristine.addValidator(
-//   hashtagsField,
-//   validateHashtags,
-//   'НИ ХУ Я (error text)'
-// );
+pristine.addValidator(
+  hashtagsField,
+  validateHashtags,
+  getHashtagsErrorMessage
+);
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
