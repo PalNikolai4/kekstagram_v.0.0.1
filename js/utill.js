@@ -56,4 +56,17 @@ const clearHtml = (element) => {
   return element;
 };
 
-export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums, isEsc, clearHtml };
+const getArrFromStr = (stringValue) => {
+  const arr = stringValue.split(' ');
+  arr.forEach((element, index, array) => {
+    array[index] = element.toLowerCase();
+  });
+  return arr;
+}
+
+const checksForDuplicates = (arr) => {
+  const uniqueElements = new Set(arr);
+  return (arr.length === uniqueElements.size);
+}
+
+export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums, isEsc, clearHtml, getArrFromStr, checksForDuplicates };
