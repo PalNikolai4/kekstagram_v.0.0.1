@@ -13,11 +13,14 @@ const uploadOverlay = form.querySelector('.img-upload__overlay');
 const uploadScale = form.querySelector('.img-upload__scale');
 const effectsList = form.querySelector('.effects__list');
 const hashtagsField = form.querySelector('.text__hashtags');
+const textDescription = form.querySelector('.text__description');
 
 const onEscKeyDown = (evt) => {
   const activeElement = document.activeElement;
-
-  if (isEsc(evt) && activeElement !== hashtagsField) {
+  if (
+    isEsc(evt) &&
+    activeElement !== hashtagsField &&
+    activeElement !== textDescription) {
     closePhotoEditingModal();
   }
 };
@@ -31,7 +34,7 @@ const onUploadOverlayClick = (evt) => {
 const onUseEffects = (evt) => useEffects(evt.target);
 const onUseEffectLevel = (evt) => useEffectLevel(evt.target);
 
-function openPhotoEditingModal () {
+function openPhotoEditingModal() {
   uploadField.addEventListener('change', () => {
     body.classList.add('modal-open');
     imgUploadOverlay.classList.remove('hidden');
@@ -49,7 +52,7 @@ function openPhotoEditingModal () {
   });
 }
 
-function closePhotoEditingModal () {
+function closePhotoEditingModal() {
   body.classList.remove('modal-open');
   imgUploadOverlay.classList.add('hidden');
   document.removeEventListener('keydown', onEscKeyDown);
