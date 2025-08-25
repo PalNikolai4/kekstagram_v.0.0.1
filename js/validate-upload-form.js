@@ -4,6 +4,9 @@ const form = document.querySelector('.img-upload__form');
 const imgUploadFieldset = form.querySelector('.img-upload__text');
 const hashtagsField = imgUploadFieldset.querySelector('.text__hashtags');
 
+hashtagsField.removeAttribute('min');
+hashtagsField.removeAttribute('max');
+
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
   errorTextParent: 'img-upload__text',
@@ -23,6 +26,10 @@ const validateHashtags = () => {
   return hasDublicate && isValid;
 };
 
+const appliesStylesToErrors = () => {
+  imgUploadFieldset.style.color = 'red';
+}
+
 const getHashtagsErrorMessage = () => {
   let errorMessage = '';
   const hashtags = getArrFromStr(hashtagsField.value);
@@ -40,6 +47,11 @@ const getHashtagsErrorMessage = () => {
   if (!hasDublicate) {
     errorMessage += '\nПовторяющиеся теги недопустимы. Теги в разном регистре считаются одинаковыми.';
   }
+
+  if (errorMessage) {
+    appliesStylesToErrors();
+  }
+
   return errorMessage;
 };
 
@@ -66,6 +78,7 @@ form.addEventListener('submit', (evt) => {
 // хэш-теги необязательны;
 // если фокус находится в поле ввода хэш-тега, нажатие на Esc не должно приводить к закрытию формы редактирования изображения.
 
+// # #WE #we #123456789012345678901 #123qw #45tg
 
 // комментарий не обязателен;
 // длина комментария не может составлять больше 140 символов;
