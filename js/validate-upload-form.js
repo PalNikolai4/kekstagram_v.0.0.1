@@ -78,8 +78,20 @@ pristine.addValidator(
   'Максимальная длина комментария - 140 символов'
 );
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
+// form.addEventListener('submit', (evt) => {
+//   evt.preventDefault();
+//   pristine.validate();
+//   validateHashtags();
+//   validateDescription();
+// });
+
+const onValidatesForm = (evt) => {
+  // evt.preventDefault();
   pristine.validate();
   validateHashtags();
-});
+  validateDescription();
+}
+
+// обернуть всё в функцию -> вынести в modal-upload.js -> добавить как слушатель на форму в openPhotoEditingModal
+// удалить как слушатель в closePhotoEditingModal
+export { onValidatesForm }
