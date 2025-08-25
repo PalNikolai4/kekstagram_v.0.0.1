@@ -12,9 +12,12 @@ const closeButton = form.querySelector('.img-upload__cancel');
 const uploadOverlay = form.querySelector('.img-upload__overlay');
 const uploadScale = form.querySelector('.img-upload__scale');
 const effectsList = form.querySelector('.effects__list');
+const hashtagsField = form.querySelector('.text__hashtags');
 
 const onEscKeyDown = (evt) => {
-  if (isEsc(evt)) {
+  const activeElement = document.activeElement;
+
+  if (isEsc(evt) && activeElement !== hashtagsField) {
     closePhotoEditingModal();
   }
 };
