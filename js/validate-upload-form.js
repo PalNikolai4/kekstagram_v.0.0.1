@@ -63,6 +63,21 @@ pristine.addValidator(
   getHashtagsErrorMessage
 );
 
+const validateDescription = () => {
+  let flag = true;
+  if (descriptionField.value.length > 140) {
+    flag = false;
+    appliesStylesToErrors();
+  }
+  return flag;
+}
+
+pristine.addValidator(
+  descriptionField,
+  validateDescription,
+  'Максимальная длина комментария - 140 символов'
+);
+
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   pristine.validate();
@@ -71,9 +86,3 @@ form.addEventListener('submit', (evt) => {
 
 // комментарий не обязателен;
 // длина комментария не может составлять больше 140 символов;
-
-
-// <fieldset class="img-upload__text text">
-//   <input class="text__hashtags" type="text" name="hashtags" placeholder="#ХэшТег" min="2" max="20">
-//   <textarea class="text__description" name="description" placeholder="Ваш комментарий..." maxlength="140"></textarea>
-// </fieldset>
