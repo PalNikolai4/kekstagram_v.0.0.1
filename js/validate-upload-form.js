@@ -3,9 +3,11 @@ import { getArrFromStr, checksForDuplicates } from './utill.js';
 const form = document.querySelector('.img-upload__form');
 const imgUploadFieldset = form.querySelector('.img-upload__text');
 const hashtagsField = imgUploadFieldset.querySelector('.text__hashtags');
+const descriptionField = imgUploadFieldset.querySelector('.text__description');
 
 hashtagsField.removeAttribute('min');
 hashtagsField.removeAttribute('max');
+descriptionField.removeAttribute('maxlength');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
@@ -69,7 +71,6 @@ form.addEventListener('submit', (evt) => {
 
 // комментарий не обязателен;
 // длина комментария не может составлять больше 140 символов;
-// если фокус находится в поле ввода комментария, нажатие на Esc не должно приводить к закрытию формы редактирования изображения.
 
 
 // <fieldset class="img-upload__text text">
