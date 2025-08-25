@@ -30,7 +30,7 @@ const validateHashtags = () => {
 
 const appliesStylesToErrors = () => {
   imgUploadFieldset.style.color = 'red';
-}
+};
 
 const getHashtagsErrorMessage = () => {
   let errorMessage = '';
@@ -70,7 +70,7 @@ const validateDescription = () => {
     appliesStylesToErrors();
   }
   return flag;
-}
+};
 
 pristine.addValidator(
   descriptionField,
@@ -83,6 +83,3 @@ form.addEventListener('submit', (evt) => {
   pristine.validate();
   validateHashtags();
 });
-
-// комментарий не обязателен;
-// длина комментария не может составлять больше 140 символов;
