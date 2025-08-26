@@ -30,6 +30,7 @@ const validateHashtags = () => {
 
 const appliesStylesToErrors = () => {
   imgUploadFieldset.style.color = 'red';
+  imgUploadFieldset.style.textTransform = 'none';
 };
 
 const getHashtagsErrorMessage = () => {
@@ -81,8 +82,11 @@ pristine.addValidator(
 const onValidatesForm = (evt) => {
   evt.preventDefault();
   pristine.validate();
-  validateHashtags();
-  validateDescription();
 };
 
-export { onValidatesForm };
+const clearForm = () => {
+  hashtagsField.value = '';
+  descriptionField.value = '';
+}
+
+export { onValidatesForm, clearForm };
