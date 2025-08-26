@@ -13,8 +13,9 @@ const removeClass = () => {
     });
 };
 
-const addedDefaultEffectClass = () => {
+const addedDefaultEffect = () => {
   imgUploadPreview.classList.add('effects__preview--none');
+  document.querySelector('.effects__item:first-of-type').querySelector('.effects__radio').checked = true;
 };
 
 const getEffectClass = (input) => {
@@ -34,4 +35,4 @@ const useEffects = (evt) => {
   useEffectClass(effectClass);
 };
 
-export { removeClass, addedDefaultEffectClass, useEffects };
+export { removeClass, addedDefaultEffect, useEffects };
