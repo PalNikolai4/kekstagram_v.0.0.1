@@ -47,7 +47,7 @@ const onImgUploadApplyAllActions = () => {
   effectsList.addEventListener('change', onUseEffectLevel);
   removeClass();
   addedDefaultEffectClass();
-}
+};
 
 function openPhotoEditingModal() {
   uploadField.addEventListener('change', onImgUploadApplyAllActions);
@@ -62,10 +62,10 @@ function closePhotoEditingModal() {
   uploadScale.removeEventListener('click', onUploadScaleClick);
   effectsList.removeEventListener('change', onUseEffects);
   effectsList.removeEventListener('change', onUseEffectLevel);
+  form.removeEventListener('submit', onValidatesForm);
   imgUploadOverlay.classList.add('hidden');
   removeEffectsSlider();
   showSelectedPhoto(true);
-  form.removeEventListener('submit', onValidatesForm);
 }
 
 export { openPhotoEditingModal };

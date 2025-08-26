@@ -86,12 +86,10 @@ pristine.addValidator(
 // });
 
 const onValidatesForm = (evt) => {
-  // evt.preventDefault();
+  evt.preventDefault();
   pristine.validate();
   validateHashtags();
   validateDescription();
-}
+};
 
-// обернуть всё в функцию -> вынести в modal-upload.js -> добавить как слушатель на форму в openPhotoEditingModal
-// удалить как слушатель в closePhotoEditingModal
-export { onValidatesForm }
+export { onValidatesForm };
