@@ -1,5 +1,6 @@
-import { isEsc, clearHtml } from './utill.js';
+import { showsMoreComments } from './social-comments.js';
 import { createComments } from './comments.js';
+import { isEsc, clearHtml } from './utill.js';
 
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
@@ -33,10 +34,18 @@ function openFullPicture (data) {
   body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
   bigPicture.addEventListener('click', onOverlayClick);
-  commentsCount.style = 'display: none';
-  commentsLoader.style = 'display: none';
+  // commentsCount.style = 'display: none';
+  // commentsLoader.style = 'display: none';
   renderFullPicture(data);
+
+  // если количество комментариев <= 5 отрисовываем все комментарии, скрываем commentsCount и commentsLoader,
+  // перерисовываем содержимое <div class="social__comment-count">5 из <span class="comments-count">125</span> комментариев</div>
+
+  // иначе отрисовываем первые 5 комментариев сразу вместо всех, показываем commentsCount и commentsLoader, вешаем слушатель событий на commentsLoader
+  // перерисовываем содержимое <div class="social__comment-count">5 из <span class="comments-count">125</span> комментариев</div>
+  
   socialComments.append(createComments(data.comments));
+
   document.addEventListener('keydown', onEscKeyDown);
   bigPicture.addEventListener('click', onOverlayClick);
   closeButton.addEventListener('click', closeFullPicture);
