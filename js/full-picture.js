@@ -1,13 +1,13 @@
-import { showsMoreComments } from './social-comments.js';
-import { createComments } from './comments.js';
 import { isEsc, clearHtml } from './utill.js';
+import { createOnShowMoreComments, createComments, hideCommentsLoaderButton } from './comments.js';
 
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
-const socialComments = bigPicture.querySelector('.social__comments');
 const commentsCount = bigPicture.querySelector('.social__comment-count');
-const commentsLoader = bigPicture.querySelector('.comments-loader');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
+const socialComments = bigPicture.querySelector('.social__comments');
+const commentsLoader = bigPicture.querySelector('.comments-loader');
+let currentCommentsHandlerCounter = null;
 
 const renderFullPicture = ({ url, description, likes, comments }) => {
   bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
@@ -30,21 +30,24 @@ const onOverlayClick = (evt) => {
 };
 
 function openFullPicture (data) {
+  const dataComments = data.comments;
   clearHtml(socialComments);
   body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
   bigPicture.addEventListener('click', onOverlayClick);
-  // commentsCount.style = 'display: none';
-  // commentsLoader.style = 'display: none';
   renderFullPicture(data);
 
-  // если количество комментариев <= 5 отрисовываем все комментарии, скрываем commentsCount и commentsLoader,
-  // перерисовываем содержимое <div class="social__comment-count">5 из <span class="comments-count">125</span> комментариев</div>
+  const onShowMoreComments = createOnShowMoreComments(dataComments, socialComments);
+  if (onShowMoreComments) {
+    currentCommentsHandlerCounter = () => {
+      const shouldRemove = onShowMoreComments();
+      if (shouldRemove) {
+        commentsLoader.removeEventListener('click', currentCommentsHandlerCounter);
+      }
+    };
+    commentsLoader.addEventListener('click', currentCommentsHandlerCounter);
+  }
 
-  // иначе отрисовываем первые 5 комментариев сразу вместо всех, показываем commentsCount и commentsLoader, вешаем слушатель событий на commentsLoader
-  // перерисовываем содержимое <div class="social__comment-count">5 из <span class="comments-count">125</span> комментариев</div>
-  
-  socialComments.append(createComments(data.comments));
 
   document.addEventListener('keydown', onEscKeyDown);
   bigPicture.addEventListener('click', onOverlayClick);
