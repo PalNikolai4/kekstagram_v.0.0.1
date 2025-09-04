@@ -60,6 +60,10 @@ function closeFullPicture () {
   document.removeEventListener('keydown', onEscKeyDown);
   bigPicture.removeEventListener('click', onOverlayClick);
   closeButton.removeEventListener('click', closeFullPicture);
+  if (currentCommentsHandlerCounter) {
+    commentsLoader.removeEventListener('click', currentCommentsHandlerCounter);
+    currentCommentsHandlerCounter = null;
+  }
 }
 
 export { openFullPicture };
