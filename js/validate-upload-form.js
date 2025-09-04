@@ -34,12 +34,12 @@ const getHashtagsErrorMessage = () => {
     let hashtags = hashtagsField.value.trim();
     hashtags = getArrFromStr(hashtags);
     if (hashtags.length > 5) {
-      errorMessage += 'Максимальное число тегов - 5. '
+      errorMessage += 'Максимальное число тегов - 5. ';
     }
 
     const maxLength = hashtags.every((hashtag) => hashtag.length <= 20);
     if (!maxLength) {
-      errorMessage += 'Максимальная длина одного тега - 20 символов. '
+      errorMessage += 'Максимальная длина одного тега - 20 символов. ';
     }
 
     const isValid = hashtags.every((hashtag) => validateHashtag(hashtag));
@@ -86,7 +86,7 @@ const onValidateFieldForm = () => {
   } else {
     submitButtonForm.disabled = false;
   }
-}
+};
 
 
 const pristine = new Pristine(form, {
@@ -107,7 +107,7 @@ pristine.addValidator(
   'Максимальная длина комментария - 140 символов'
 );
 
-const onValidateForm = () => {
+const onValidateForm = (evt) => {
   evt.preventDefault();
   // pristine.validate();
 };
@@ -115,6 +115,6 @@ const onValidateForm = () => {
 const clearForm = () => {
   hashtagsField.value = '';
   descriptionField.value = '';
-}
+};
 
 export { onValidateForm, onValidateFieldForm, clearForm };

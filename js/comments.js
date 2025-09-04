@@ -38,13 +38,13 @@ const hideCommentsLoaderButton = (isHidden) => {
   } else {
     commentsLoaderButton.classList.remove('hidden');
   }
-}
+};
 
 const changesNumberCommentsShown = (dataComments, socialComments) => {
   commentsCountInfo.innerHTML = '';
   const insertText = `${socialComments.children.length} из <span class="comments-count">${dataComments.length}</span> комментариев`;
   commentsCountInfo.insertAdjacentHTML('afterbegin', insertText);
-}
+};
 
 const createOnShowMoreComments = (dataComments, socialComments) => {
   const COUNT_COMMENTS_SHIFT = 5;
@@ -54,7 +54,7 @@ const createOnShowMoreComments = (dataComments, socialComments) => {
     socialComments.append(createComments(dataComments));
     changesNumberCommentsShown(dataComments, socialComments);
     return null;
-  };
+  }
 
   hideCommentsLoaderButton(false);
   socialComments.append(createComments(dataComments.slice(0, COUNT_COMMENTS_SHIFT)));
@@ -72,7 +72,7 @@ const createOnShowMoreComments = (dataComments, socialComments) => {
       return true;
     }
     return false;
-  }
-}
+  };
+};
 
 export { createOnShowMoreComments, createComments, hideCommentsLoaderButton };
