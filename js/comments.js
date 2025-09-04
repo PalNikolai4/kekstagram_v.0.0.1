@@ -1,5 +1,5 @@
 const bigPicture = document.querySelector('.big-picture');
-const commentsList = bigPicture.querySelector('.social__comments');
+const commentsCountInfo = bigPicture.querySelector('.social__comment-count');
 
 const createElement = (tagName, className, text) => {
   const element = document.createElement(tagName);
@@ -38,26 +38,35 @@ const hideCommentsLoaderButton = (isHidden) => {
   } else {
     commentsLoaderButton.classList.remove('hidden');
   }
+}
 
+const changesNumberCommentsShown = (dataComments, socialComments) => {
+  commentsCountInfo.innerHTML = '';
+  const insertText = `${socialComments.children.length} из <span class="comments-count">${dataComments.length}</span> комментариев`;
+  commentsCountInfo.insertAdjacentHTML('afterbegin', insertText);
 }
 
 const createOnShowMoreComments = (dataComments, socialComments) => {
-  if (dataComments.length <= 5) {
+  const COUNT_COMMENTS_SHIFT = 5;
+
+  if (dataComments.length <= COUNT_COMMENTS_SHIFT) {
     hideCommentsLoaderButton(true);
     socialComments.append(createComments(dataComments));
+    changesNumberCommentsShown(dataComments, socialComments);
     return null;
   };
 
   hideCommentsLoaderButton(false);
-  socialComments.append(createComments(dataComments.slice(0, 5)));
+  socialComments.append(createComments(dataComments.slice(0, COUNT_COMMENTS_SHIFT)));
+  changesNumberCommentsShown(dataComments, socialComments);
 
   return () => {
-    const currentComment = socialComments.children.length;
-    const nextComment = currentComment + 5;
+    let currentComment = socialComments.children.length;
+    const nextComment = currentComment + COUNT_COMMENTS_SHIFT;
     const nextComments = dataComments.slice(currentComment, nextComment);
     socialComments.append(createComments(nextComments));
     currentComment = socialComments.children.length;
-
+    changesNumberCommentsShown(dataComments, socialComments);
     if (currentComment >= dataComments.length) {
       hideCommentsLoaderButton(true);
       return true;

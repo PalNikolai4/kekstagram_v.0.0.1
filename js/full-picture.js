@@ -1,9 +1,8 @@
+import { createOnShowMoreComments } from './comments.js';
 import { isEsc, clearHtml } from './utill.js';
-import { createOnShowMoreComments, createComments, hideCommentsLoaderButton } from './comments.js';
 
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
-const commentsCount = bigPicture.querySelector('.social__comment-count');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 const socialComments = bigPicture.querySelector('.social__comments');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
