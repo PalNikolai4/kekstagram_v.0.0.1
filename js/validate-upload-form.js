@@ -4,16 +4,11 @@ const form = document.querySelector('.img-upload__form');
 const imgUploadFieldset = form.querySelector('.img-upload__text');
 const hashtagsField = imgUploadFieldset.querySelector('.text__hashtags');
 const descriptionField = imgUploadFieldset.querySelector('.text__description');
+const submitButtonForm = form.querySelector('.img-upload__submit');
 
 hashtagsField.removeAttribute('min');
 hashtagsField.removeAttribute('max');
 descriptionField.removeAttribute('maxlength');
-
-const pristine = new Pristine(form, {
-  classTo: 'img-upload__text',
-  errorTextParent: 'img-upload__text',
-  errorTextClass: 'img-upload__text-error'
-});
 
 const validateHashtag = (value) =>
   value &&
@@ -22,41 +17,83 @@ const validateHashtag = (value) =>
   /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/.test(value);
 
 const validateHashtags = () => {
-  const hashtags = getArrFromStr(hashtagsField.value);
-  const hasDublicate = checksForDuplicates(hashtags);
+  if (hashtagsField.value.length === 0) {
+    return true;
+  }
+
+  let hashtags = hashtagsField.value.trim();
+  hashtags = getArrFromStr(hashtags);
+  const hasNotDublicate = checksForDuplicates(hashtags);
   const isValid = hashtags.every((hashtag) => validateHashtag(hashtag));
-  return hasDublicate && isValid;
+  return hasNotDublicate && isValid && (hashtags.length <= 5);
 };
+
+const getHashtagsErrorMessage = () => {
+  let errorMessage = '';
+  if (hashtagsField.value.length > 0) {
+    let hashtags = hashtagsField.value.trim();
+    hashtags = getArrFromStr(hashtags);
+    if (hashtags.length > 5) {
+      errorMessage += 'Максимальное число тегов - 5. ';
+    }
+
+    const maxLength = hashtags.every((hashtag) => hashtag.length <= 20);
+    if (!maxLength) {
+      errorMessage += 'Максимальная длина одного тега - 20 символов. ';
+    }
+
+    const isValid = hashtags.every((hashtag) => validateHashtag(hashtag));
+    if (!isValid) {
+      errorMessage += 'Теги должны начинаться с символа "#". Кроме символа "#" содержать буквы и (или) цифры. Другие специальные символы не допускаются. ';
+    }
+
+    const hasNotDublicate = checksForDuplicates(hashtags);
+    if (!hasNotDublicate) {
+      errorMessage += 'Одинаковые теги не допустимы. ';
+    }
+  }
+  return errorMessage;
+};
+
+const validateDescription = () => {
+  let flag = null;
+
+  if (descriptionField.value.length === 0) {
+    flag = true;
+  }
+
+  if (descriptionField.value.length > 140) {
+    flag = false;
+  } else {
+    flag = true;
+  }
+
+  return flag;
+};
+
 
 const appliesStylesToErrors = () => {
   imgUploadFieldset.style.color = 'red';
   imgUploadFieldset.style.textTransform = 'none';
 };
 
-const getHashtagsErrorMessage = () => {
-  let errorMessage = '';
-  const hashtags = getArrFromStr(hashtagsField.value);
-
-  const isValid = hashtags.every((hashtag) => validateHashtag(hashtag));
-  if (!isValid) {
-    errorMessage += '\nТеги должны начинаться с символа # и состоять только из букв и (или) цифр. Тег не может быть короче 2 символов.';
-  }
-
-  if (hashtags.length > 5) {
-    errorMessage += '\nМаксимальное число тегов - 5.';
-  }
-
-  const hasDublicate = checksForDuplicates(hashtags);
-  if (!hasDublicate) {
-    errorMessage += '\nПовторяющиеся теги недопустимы. Теги в разном регистре считаются одинаковыми.';
-  }
-
-  if (errorMessage) {
+const onValidateFieldForm = () => {
+  const hashtags = validateHashtags();
+  const description = validateDescription();
+  if (!hashtags || !description) {
+    submitButtonForm.disabled = true;
     appliesStylesToErrors();
+  } else {
+    submitButtonForm.disabled = false;
   }
-
-  return errorMessage;
 };
+
+
+const pristine = new Pristine(form, {
+  classTo: 'img-upload__text',
+  errorTextParent: 'img-upload__text',
+  errorTextClass: 'img-upload__text-error'
+});
 
 pristine.addValidator(
   hashtagsField,
@@ -64,29 +101,20 @@ pristine.addValidator(
   getHashtagsErrorMessage
 );
 
-const validateDescription = () => {
-  let flag = true;
-  if (descriptionField.value.length > 140) {
-    flag = false;
-    appliesStylesToErrors();
-  }
-  return flag;
-};
-
 pristine.addValidator(
   descriptionField,
   validateDescription,
   'Максимальная длина комментария - 140 символов'
 );
 
-const onValidatesForm = (evt) => {
+const onValidateForm = (evt) => {
   evt.preventDefault();
-  pristine.validate();
+  // pristine.validate();
 };
 
 const clearForm = () => {
   hashtagsField.value = '';
   descriptionField.value = '';
-}
+};
 
-export { onValidatesForm, clearForm };
+export { onValidateForm, onValidateFieldForm, clearForm };
