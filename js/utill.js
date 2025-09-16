@@ -1,3 +1,5 @@
+const ALERT_SHOW_TIME = 5000;
+
 // Сравнивает длину строки с числом.
 const checkStringLength = (string = '', maxLength = 0) => Number(string.length) < Number(maxLength);
 checkStringLength();
@@ -69,4 +71,25 @@ const checksForDuplicates = (arr) => {
   return (arr.length === uniqueElements.size);
 };
 
-export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums, isEsc, clearHtml, getArrFromStr, checksForDuplicates };
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.top = '10%';
+  alertContainer.style.left = '50%';
+  alertContainer.style.transform = 'translate(-50%)';
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.padding = '20px';
+  alertContainer.style.backgroundColor = 'rgba(230, 25, 25, 0.7)';
+  alertContainer.style.borderRadius = '10px';
+  alertContainer.style.fontSize = '2rem';
+  alertContainer.style.fontFamily = 'inherit';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.textTransform = 'none';
+  alertContainer.textContent = message;
+  document.body.append(alertContainer);
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+}
+
+export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums, isEsc, clearHtml, getArrFromStr, checksForDuplicates, showAlert };

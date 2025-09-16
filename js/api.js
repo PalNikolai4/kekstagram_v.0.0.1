@@ -1,8 +1,8 @@
-const getData = (...onSuccess) => {
+const getData = (onFail, ...onSuccess) => {
   fetch('https://25.javascript.htmlacademy.pro/kekstagram/data/')
   .then((response) => {
     if (!response.ok) {
-      throw new Error(`${response.status}`);
+      throw new Error('Ошибка сети. Попробуйте позже');
     }
     return response.json();
   })
@@ -18,7 +18,7 @@ const getData = (...onSuccess) => {
       openPhotoEditingModal();
     }
   })
-  .catch((err) => console.error(`${err}`));
+  .catch((err) => onFail(err.message));
 }
 
 export { getData }
