@@ -1,16 +1,13 @@
 const ALERT_SHOW_TIME = 5000;
 
-// Сравнивает длину строки с числом.
 const checkStringLength = (string = '', maxLength = 0) => Number(string.length) < Number(maxLength);
 checkStringLength();
 
-// Возвращает положительное число
 const getPositiveNumber = (number) => {
   number = Number(number);
   return (number < 0) ? (number * (-1)) : number;
 };
 
-// Возвращает случайное целое положительное число из диапазона
 const getRandomNumRange = (firstNum = 1, lastNum = 10) => {
   firstNum = getPositiveNumber(firstNum);
   lastNum = getPositiveNumber(lastNum);
@@ -18,9 +15,7 @@ const getRandomNumRange = (firstNum = 1, lastNum = 10) => {
   const max = Math.max(firstNum, lastNum);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-getRandomNumRange();
 
-// Возвращает уникальное целое случайное число из диапазона
 const getRandomUniqueNum = (rangeStart = 1, rangeEnd = 10) => {
   const min = Math.min(rangeStart, rangeEnd);
   const max = Math.max(rangeStart, rangeEnd);
@@ -41,7 +36,6 @@ const getRandomUniqueNum = (rangeStart = 1, rangeEnd = 10) => {
   };
 };
 
-// Возвращает массив уникальных целых случайных чисел из диапазона
 const getRandomUniqueNums = (count = 1, rangeStart = 1, rangeEnd = count) => {
   const value = getRandomUniqueNum(rangeStart, rangeEnd);
   let randomUniqueNumsArray;
@@ -53,6 +47,7 @@ const getRandomUniqueNums = (count = 1, rangeStart = 1, rangeEnd = count) => {
 };
 
 const isEsc = (evt) => evt.key === 'Escape';
+
 const clearHtml = (element) => {
   element.innerHTML = '';
   return element;
@@ -92,4 +87,13 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 }
 
-export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums, isEsc, clearHtml, getArrFromStr, checksForDuplicates, showAlert };
+export {
+  getRandomNumRange,
+  getRandomUniqueNum,
+  getRandomUniqueNums,
+  isEsc,
+  clearHtml,
+  getArrFromStr,
+  checksForDuplicates,
+  showAlert
+};

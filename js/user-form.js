@@ -67,10 +67,8 @@ const validateDescription = () => {
   } else {
     flag = true;
   }
-
   return flag;
 };
-
 
 const appliesStylesToErrors = () => {
   imgUploadFieldset.style.color = 'red';
@@ -87,7 +85,6 @@ const onValidateFieldForm = () => {
     submitButtonForm.disabled = false;
   }
 };
-
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
