@@ -1,12 +1,14 @@
 import { renderPictures, renderInfoFullPicture } from './picture.js';
 import { openPhotoEditingModal } from './modal-upload.js';
-import { getData } from './api.js';
+import { createLoader } from './api.js';
 import { showAlert } from './utill.js';
 import { getPictures } from './data.js';
 
-getData(
+const getData = createLoader(
   showAlert,
   renderPictures,
   renderInfoFullPicture,
   openPhotoEditingModal
 );
+
+getData();
