@@ -1,7 +1,7 @@
 import { showSelectedPhoto, blockingScaleButtonsOnLoading, onUploadScaleClick } from './edit-upload.js';
 import { createdEffectsSlider, removeEffectsSlider, useEffectLevel } from './slider-upload.js';
 import { removeClass, addedDefaultEffect, useEffects } from './effects-upload.js';
-import { onValidateForm, onValidateFieldForm, clearForm } from './user-form.js';
+import { validateForm, onValidateFieldForm, clearForm } from './user-form.js';
 import { isEsc } from './utill.js';
 
 const body = document.querySelector('body');
@@ -47,6 +47,11 @@ const onImgUploadApplyAllActions = () => {
   effectsList.addEventListener('change', onUseEffectLevel);
   removeClass();
   addedDefaultEffect();
+};
+
+const onValidateForm = (evt) => {
+  validateForm(evt);
+  closePhotoEditingModal();
 };
 
 function openPhotoEditingModal() {

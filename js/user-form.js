@@ -7,18 +7,6 @@ const hashtagsField = imgUploadFieldset.querySelector('.text__hashtags');
 const descriptionField = imgUploadFieldset.querySelector('.text__description');
 const submitButtonForm = form.querySelector('.img-upload__submit');
 
-const showMessageFormSubmissionResult = (isSuccess) => {
-  let classElement = null;
-  isSuccess ? classElement = 'success' : classElement = 'error';
-  const messageElement = document
-  .querySelector(`#${classElement}`)
-  .content
-  .querySelector(`.${classElement}`);
-
-  const body = document.querySelector('body');
-  body.insertAdjacentElement('beforeend', messageElement);
-}
-
 hashtagsField.removeAttribute('min');
 hashtagsField.removeAttribute('max');
 descriptionField.removeAttribute('maxlength');
@@ -117,7 +105,19 @@ pristine.addValidator(
   'Максимальная длина комментария - 140 символов'
 );
 
-const onValidateForm = (evt) => {
+const showMessageFormSubmissionResult = (isSuccess) => {
+  let classElement = null;
+  isSuccess ? classElement = 'success' : classElement = 'error';
+  const messageElement = document
+  .querySelector(`#${classElement}`)
+  .content
+  .querySelector(`.${classElement}`);
+
+  const body = document.querySelector('body');
+  body.insertAdjacentElement('beforeend', messageElement);
+};
+
+const validateForm = (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
@@ -133,7 +133,7 @@ const onValidateForm = (evt) => {
       },
       new FormData(evt.target)
     )
-  }
+  };
 };
 
 const clearForm = () => {
@@ -141,4 +141,4 @@ const clearForm = () => {
   descriptionField.value = '';
 };
 
-export { onValidateForm, onValidateFieldForm, clearForm };
+export { validateForm, onValidateFieldForm, clearForm };
