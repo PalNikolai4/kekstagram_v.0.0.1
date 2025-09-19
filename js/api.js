@@ -28,4 +28,21 @@ const createLoader = (onFail, ...onSuccess) => () => {
   .catch((err) => onFail(err.message));
 }
 
-export { createLoader }
+const sendData = (onSuccess, onFail, body) => {
+  fetch(
+    'https://25.javascript.htmlacademy.pro/kekstagram',
+    {
+      method: 'POST',
+      body
+    }
+  )
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
+    }
+    onSuccess();
+  })
+  .catch(() => onFail('Не удалось отправить форму. Попробуйте ещё раз'));
+}
+
+export { createLoader, sendData }

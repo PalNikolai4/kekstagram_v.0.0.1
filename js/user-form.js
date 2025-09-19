@@ -1,10 +1,23 @@
 import { getArrFromStr, checksForDuplicates } from './utill.js';
+import { sendData } from './api.js';
 
 const form = document.querySelector('.img-upload__form');
 const imgUploadFieldset = form.querySelector('.img-upload__text');
 const hashtagsField = imgUploadFieldset.querySelector('.text__hashtags');
 const descriptionField = imgUploadFieldset.querySelector('.text__description');
 const submitButtonForm = form.querySelector('.img-upload__submit');
+
+const showMessageFormSubmissionResult = (isSuccess) => {
+  let classElement = null;
+  isSuccess ? classElement = 'success' : classElement = 'error';
+  const messageElement = document
+  .querySelector(`#${classElement}`)
+  .content
+  .querySelector(`.${classElement}`);
+
+  const body = document.querySelector('body');
+  body.insertAdjacentElement('beforeend', messageElement);
+}
 
 hashtagsField.removeAttribute('min');
 hashtagsField.removeAttribute('max');
@@ -106,7 +119,21 @@ pristine.addValidator(
 
 const onValidateForm = (evt) => {
   evt.preventDefault();
-  // pristine.validate();
+  const isValid = pristine.validate();
+  if (isValid) {
+    submitButtonForm.disabled = true;
+    sendData(
+      () => {
+        submitButtonForm.disabled = false;
+        showMessageFormSubmissionResult(true);
+      },
+      () => {
+        submitButtonForm.disabled = false;
+        showMessageFormSubmissionResult(false);
+      },
+      new FormData(evt.target)
+    )
+  }
 };
 
 const clearForm = () => {
