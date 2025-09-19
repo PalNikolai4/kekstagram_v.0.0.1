@@ -1,4 +1,5 @@
 import { getArrFromStr, checksForDuplicates } from './utill.js';
+import { showMessageFormSubmissionResult } from './user-form-submit.js';
 import { sendData } from './api.js';
 
 const form = document.querySelector('.img-upload__form');
@@ -104,18 +105,6 @@ pristine.addValidator(
   validateDescription,
   'Максимальная длина комментария - 140 символов'
 );
-
-const showMessageFormSubmissionResult = (isSuccess) => {
-  let classElement = null;
-  isSuccess ? classElement = 'success' : classElement = 'error';
-  const messageElement = document
-  .querySelector(`#${classElement}`)
-  .content
-  .querySelector(`.${classElement}`);
-
-  const body = document.querySelector('body');
-  body.insertAdjacentElement('beforeend', messageElement);
-};
 
 const validateForm = (evt) => {
   evt.preventDefault();
