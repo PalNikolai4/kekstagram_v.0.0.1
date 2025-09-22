@@ -1,32 +1,32 @@
-const createLoader = (onFail, ...onSuccess) => () => {
-  return fetch(
+const createLoader = (onFail, ...onSuccess) => () =>
+  fetch(
     'https://25.javascript.htmlacademy.pro/kekstagram/data/',
     {
       method: 'GET',
       credentials: 'same-origin'
     }
   )
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Ошибка сети. Попробуйте позже');
-    }
-    return response.json();
-  })
-  .then((data) => {
-    const [ renderPictures, renderInfoFullPicture, openPhotoEditingModal ] = onSuccess;
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Ошибка сети. Попробуйте позже');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const [renderPictures, renderInfoFullPicture, openPhotoEditingModal] = onSuccess;
 
-    if (
-      typeof renderPictures === 'function' &&
-      typeof renderInfoFullPicture === 'function' &&
-      typeof openPhotoEditingModal === 'function'
-    ) {
-      renderPictures(data);
-      renderInfoFullPicture(data);
-      openPhotoEditingModal();
-    }
-  })
-  .catch((err) => onFail(err.message));
-}
+      if (
+        typeof renderPictures === 'function' &&
+        typeof renderInfoFullPicture === 'function' &&
+        typeof openPhotoEditingModal === 'function'
+      ) {
+        renderPictures(data);
+        renderInfoFullPicture(data);
+        openPhotoEditingModal();
+      }
+    })
+    .catch((err) => onFail(err.message));
+
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
@@ -36,13 +36,13 @@ const sendData = (onSuccess, onFail, body) => {
       body
     }
   )
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
-    }
-    onSuccess();
-  })
-  .catch(() => onFail('Не удалось отправить форму. Попробуйте ещё раз'));
-}
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
+      }
+      onSuccess();
+    })
+    .catch(() => onFail('Не удалось отправить форму. Попробуйте ещё раз'));
+};
 
-export { createLoader, sendData }
+export { createLoader, sendData };

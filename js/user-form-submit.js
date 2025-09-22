@@ -1,8 +1,12 @@
-import { isEsc } from "./utill.js";
+import { isEsc } from './utill.js';
 
 const showMessageFormSubmissionResult = (isSuccess) => {
   let classElement = null;
-  isSuccess ? classElement = 'success' : classElement = 'error';
+  if (isSuccess) {
+    classElement = 'success';
+  } else {
+    classElement = 'error';
+  }
 
   const template = document.querySelector(`#${classElement}`);
   const messageElement = template.content.querySelector(`.${classElement}`).cloneNode(true);
@@ -28,9 +32,9 @@ const showMessageFormSubmissionResult = (isSuccess) => {
     if (evt.target === messageElement) {
       messageElement.remove();
       document.removeEventListener('keydown', onEscKeyDown);
-    };
+    }
   });
 
 };
 
-export { showMessageFormSubmissionResult }
+export { showMessageFormSubmissionResult };

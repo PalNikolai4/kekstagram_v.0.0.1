@@ -121,8 +121,8 @@ const validateForm = (evt) => {
         showMessageFormSubmissionResult(false);
       },
       new FormData(evt.target)
-    )
-  };
+    );
+  }
 };
 
 const clearForm = () => {
