@@ -13,16 +13,19 @@ const createLoader = (onFail, ...onSuccess) => () =>
       return response.json();
     })
     .then((data) => {
-      const [renderPictures, renderInfoFullPicture, openPhotoEditingModal] = onSuccess;
+      const [renderPictures, renderInfoFullPicture, openPhotoEditingModal, showImgFilters] = onSuccess;
 
       if (
         typeof renderPictures === 'function' &&
         typeof renderInfoFullPicture === 'function' &&
-        typeof openPhotoEditingModal === 'function'
+        typeof openPhotoEditingModal === 'function' &&
+        typeof showImgFilters === 'function'
+
       ) {
         renderPictures(data);
         renderInfoFullPicture(data);
         openPhotoEditingModal();
+        showImgFilters();
       }
     })
     .catch((err) => onFail(err.message));
