@@ -2,12 +2,8 @@ import { isEsc } from './utill.js';
 
 const showMessageFormSubmissionResult = (isSuccess) => {
   let classElement = null;
-  if (isSuccess) {
-    classElement = 'success';
-  } else {
-    classElement = 'error';
-  }
-
+  isSuccess ? classElement = 'success' : classElement = 'error';
+  
   const template = document.querySelector(`#${classElement}`);
   const messageElement = template.content.querySelector(`.${classElement}`).cloneNode(true);
 

@@ -30,7 +30,7 @@ const createLoader = (onFail, ...onSuccess) => () =>
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://25.javascript.htmlacademy.pro/kekstagram',
+    'https://25.javascript.htmlacademy.pro/kekstagram/',
     {
       method: 'POST',
       body
