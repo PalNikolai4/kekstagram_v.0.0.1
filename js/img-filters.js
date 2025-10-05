@@ -16,7 +16,7 @@ const imgFiltersToggle = (data, renderPictures) => {
       evt.target.classList.add('img-filters__button--active');
 
       const pictures = picturesContainer.querySelectorAll('a.picture');
-      pictures.forEach(picture => picture.remove());
+      pictures.forEach((picture) => picture.remove());
 
       let renderData = null;
       if (evt.target.id === 'filter-default') {
@@ -32,7 +32,5 @@ const imgFiltersToggle = (data, renderPictures) => {
     }
   });
 };
-
-
 
 export { imgFiltersToggle };
