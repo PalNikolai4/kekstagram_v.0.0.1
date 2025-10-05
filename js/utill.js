@@ -46,6 +46,11 @@ const getRandomUniqueNums = (count = 1, rangeStart = 1, rangeEnd = count) => {
   return randomUniqueNumsArray;
 };
 
+const getRandomElements = (arr, count) => {
+  const uniqueNums = getRandomUniqueNums(count, 0, arr.length - 1);
+  return uniqueNums.map((uniqueNum) => arr[uniqueNum]);
+}
+
 const isEsc = (evt) => evt.key === 'Escape';
 
 const clearHtml = (element) => {
@@ -95,5 +100,6 @@ export {
   clearHtml,
   getArrFromStr,
   checksForDuplicates,
-  showAlert
+  showAlert,
+  getRandomElements
 };
