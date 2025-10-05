@@ -1,4 +1,6 @@
 import { getArrFromStr, checksForDuplicates } from './utill.js';
+import { showMessageFormSubmissionResult } from './user-form-submit.js';
+import { sendData } from './api.js';
 
 const form = document.querySelector('.img-upload__form');
 const imgUploadFieldset = form.querySelector('.img-upload__text');
@@ -67,10 +69,8 @@ const validateDescription = () => {
   } else {
     flag = true;
   }
-
   return flag;
 };
-
 
 const appliesStylesToErrors = () => {
   imgUploadFieldset.style.color = 'red';
@@ -87,7 +87,6 @@ const onValidateFieldForm = () => {
     submitButtonForm.disabled = false;
   }
 };
-
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
@@ -107,9 +106,23 @@ pristine.addValidator(
   'Максимальная длина комментария - 140 символов'
 );
 
-const onValidateForm = (evt) => {
+const validateForm = (evt) => {
   evt.preventDefault();
-  // pristine.validate();
+  const isValid = pristine.validate();
+  if (isValid) {
+    submitButtonForm.disabled = true;
+    sendData(
+      () => {
+        submitButtonForm.disabled = false;
+        showMessageFormSubmissionResult(true);
+      },
+      () => {
+        submitButtonForm.disabled = false;
+        showMessageFormSubmissionResult(false);
+      },
+      new FormData(evt.target)
+    );
+  }
 };
 
 const clearForm = () => {
@@ -117,4 +130,4 @@ const clearForm = () => {
   descriptionField.value = '';
 };
 
-export { onValidateForm, onValidateFieldForm, clearForm };
+export { validateForm, onValidateFieldForm, clearForm };

@@ -1,8 +1,15 @@
 import { renderPictures, renderInfoFullPicture } from './picture.js';
 import { openPhotoEditingModal } from './modal-upload.js';
-import { getPictures } from './data.js';
+import { createLoader } from './api.js';
+import { showAlert } from './utill.js';
+import { imgFiltersToggle } from './img-filters.js';
 
-const picturesData = getPictures(25);
-renderPictures(picturesData);
-renderInfoFullPicture(picturesData);
-openPhotoEditingModal();
+const getData = createLoader(
+  showAlert,
+  renderPictures,
+  renderInfoFullPicture,
+  openPhotoEditingModal,
+  imgFiltersToggle
+);
+
+getData();

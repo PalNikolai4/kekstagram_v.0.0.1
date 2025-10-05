@@ -40,6 +40,7 @@ const getPicture = (id) => {
 
 };
 // Возвращает массив обьектов "Описание фотографий с вложенными массивами обьктов "Комментарий""
+// Функция уже не нужна. Вроде бы.
 const getPictures = (count = 25) => {
   const arrayUniqueNums = getRandomUniqueNums(count);
   const arrayPictures = [];

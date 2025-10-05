@@ -1,14 +1,13 @@
-// Сравнивает длину строки с числом.
+const ALERT_SHOW_TIME = 5000;
+
 const checkStringLength = (string = '', maxLength = 0) => Number(string.length) < Number(maxLength);
 checkStringLength();
 
-// Возвращает положительное число
 const getPositiveNumber = (number) => {
   number = Number(number);
   return (number < 0) ? (number * (-1)) : number;
 };
 
-// Возвращает случайное целое положительное число из диапазона
 const getRandomNumRange = (firstNum = 1, lastNum = 10) => {
   firstNum = getPositiveNumber(firstNum);
   lastNum = getPositiveNumber(lastNum);
@@ -16,9 +15,7 @@ const getRandomNumRange = (firstNum = 1, lastNum = 10) => {
   const max = Math.max(firstNum, lastNum);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-getRandomNumRange();
 
-// Возвращает уникальное целое случайное число из диапазона
 const getRandomUniqueNum = (rangeStart = 1, rangeEnd = 10) => {
   const min = Math.min(rangeStart, rangeEnd);
   const max = Math.max(rangeStart, rangeEnd);
@@ -39,7 +36,6 @@ const getRandomUniqueNum = (rangeStart = 1, rangeEnd = 10) => {
   };
 };
 
-// Возвращает массив уникальных целых случайных чисел из диапазона
 const getRandomUniqueNums = (count = 1, rangeStart = 1, rangeEnd = count) => {
   const value = getRandomUniqueNum(rangeStart, rangeEnd);
   let randomUniqueNumsArray;
@@ -50,7 +46,13 @@ const getRandomUniqueNums = (count = 1, rangeStart = 1, rangeEnd = count) => {
   return randomUniqueNumsArray;
 };
 
+const getRandomElements = (arr, count) => {
+  const uniqueNums = getRandomUniqueNums(count, 0, arr.length - 1);
+  return uniqueNums.map((uniqueNum) => arr[uniqueNum]);
+}
+
 const isEsc = (evt) => evt.key === 'Escape';
+
 const clearHtml = (element) => {
   element.innerHTML = '';
   return element;
@@ -69,4 +71,35 @@ const checksForDuplicates = (arr) => {
   return (arr.length === uniqueElements.size);
 };
 
-export { getRandomNumRange, getRandomUniqueNum, getRandomUniqueNums, isEsc, clearHtml, getArrFromStr, checksForDuplicates };
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.top = '10%';
+  alertContainer.style.left = '50%';
+  alertContainer.style.transform = 'translate(-50%)';
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.padding = '20px';
+  alertContainer.style.backgroundColor = 'rgba(230, 25, 25, 0.7)';
+  alertContainer.style.borderRadius = '10px';
+  alertContainer.style.fontSize = '2rem';
+  alertContainer.style.fontFamily = 'inherit';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.textTransform = 'none';
+  alertContainer.textContent = message;
+  document.body.append(alertContainer);
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+export {
+  getRandomNumRange,
+  getRandomUniqueNum,
+  getRandomUniqueNums,
+  isEsc,
+  clearHtml,
+  getArrFromStr,
+  checksForDuplicates,
+  showAlert,
+  getRandomElements
+};
