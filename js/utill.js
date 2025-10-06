@@ -92,6 +92,14 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+const debounce = (cb, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => cb.apply(this, rest), timeoutDelay);
+  };
+};
+
 export {
   getRandomNumRange,
   getRandomUniqueNum,
@@ -101,5 +109,6 @@ export {
   getArrFromStr,
   checksForDuplicates,
   showAlert,
-  getRandomElements
+  getRandomElements,
+  debounce
 };

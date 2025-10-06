@@ -1,13 +1,16 @@
-import { getRandomElements } from './utill.js';
+import { debounce, getRandomElements } from './utill.js';
 
 const imgFilters = document.querySelector('.img-filters');
 const imgFiltersForm = imgFilters.querySelector('.img-filters__form');
 const filtersButtons = imgFiltersForm.querySelectorAll('button.img-filters__button');
 const picturesContainer = document.querySelector('.pictures');
+const RERENDER_DELAY = 500;
 
 const imgFiltersToggle = (data, renderPictures) => {
+  const debouncedRender = debounce((renderData) => { renderPictures(renderData); }, RERENDER_DELAY);
 
   imgFilters.classList.remove('img-filters--inactive');
+
   imgFiltersForm.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('img-filters__button')) {
       filtersButtons.forEach((button) => {
@@ -17,6 +20,7 @@ const imgFiltersToggle = (data, renderPictures) => {
 
       const pictures = picturesContainer.querySelectorAll('a.picture');
       pictures.forEach((picture) => picture.remove());
+
 
       let renderData = null;
       if (evt.target.id === 'filter-default') {
@@ -28,7 +32,7 @@ const imgFiltersToggle = (data, renderPictures) => {
       if (evt.target.id === 'filter-discussed') {
         renderData = data.slice().sort((a, b) => b.comments.length - a.comments.length);
       }
-      renderPictures(renderData);
+      debouncedRender(renderData);
     }
   });
 };
