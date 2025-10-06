@@ -30,7 +30,6 @@ const createLoader = (onFail, ...onSuccess) => () =>
     })
     .catch((err) => onFail(err.message));
 
-
 const sendData = (onSuccess, onFail, body) => {
   fetch(
     'https://25.javascript.htmlacademy.pro/kekstagram/',

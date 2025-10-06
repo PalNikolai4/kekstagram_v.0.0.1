@@ -89,7 +89,6 @@ function onUploadScaleClick (evt) {
     currentScale -= SCALE_STEP;
   }
 
-
   if (evt.target === biggerButton) {
     blockingBiggerButton(currentScale);
     currentScale += SCALE_STEP;

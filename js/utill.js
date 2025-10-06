@@ -1,8 +1,3 @@
-const ALERT_SHOW_TIME = 5000;
-
-const checkStringLength = (string = '', maxLength = 0) => Number(string.length) < Number(maxLength);
-checkStringLength();
-
 const getPositiveNumber = (number) => {
   number = Number(number);
   return (number < 0) ? (number * (-1)) : number;
@@ -53,11 +48,6 @@ const getRandomElements = (arr, count) => {
 
 const isEsc = (evt) => evt.key === 'Escape';
 
-const clearHtml = (element) => {
-  element.innerHTML = '';
-  return element;
-};
-
 const getArrFromStr = (stringValue) => {
   const arr = stringValue.split(' ');
   arr.forEach((element, index, array) => {
@@ -71,6 +61,7 @@ const checksForDuplicates = (arr) => {
   return (arr.length === uniqueElements.size);
 };
 
+const ALERT_SHOW_TIME = 5000;
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.position = 'absolute';
@@ -101,11 +92,7 @@ const debounce = (cb, timeoutDelay) => {
 };
 
 export {
-  getRandomNumRange,
-  getRandomUniqueNum,
-  getRandomUniqueNums,
   isEsc,
-  clearHtml,
   getArrFromStr,
   checksForDuplicates,
   showAlert,

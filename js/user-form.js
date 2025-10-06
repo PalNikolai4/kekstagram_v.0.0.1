@@ -35,6 +35,7 @@ const getHashtagsErrorMessage = () => {
   if (hashtagsField.value.length > 0) {
     let hashtags = hashtagsField.value.trim();
     hashtags = getArrFromStr(hashtags);
+
     if (hashtags.length > 5) {
       errorMessage += 'Максимальное число тегов - 5. ';
     }

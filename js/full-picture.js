@@ -1,5 +1,5 @@
 import { createOnShowMoreComments } from './comments.js';
-import { isEsc, clearHtml } from './utill.js';
+import { isEsc } from './utill.js';
 
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
@@ -30,7 +30,7 @@ const onOverlayClick = (evt) => {
 
 function openFullPicture (data) {
   const dataComments = data.comments;
-  clearHtml(socialComments);
+  socialComments.innerHTML = '';
   body.classList.add('modal-open');
   bigPicture.classList.remove('hidden');
   bigPicture.addEventListener('click', onOverlayClick);
